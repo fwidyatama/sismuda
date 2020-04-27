@@ -1,0 +1,1 @@
+<p>Terdapat pengajuan pengecekan bus. Untuk informasi lebih lanjut mohon periksa di sistem. Terima kasih</p>
