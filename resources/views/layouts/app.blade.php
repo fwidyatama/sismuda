@@ -30,7 +30,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('user.showofficerlist')}}">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-text mx-3">SISMUDA </div>
       </a>
 
@@ -58,24 +58,36 @@
             <i class="fas fa-sticky-note"></i>
             <span>Surat Tugas</span></a>
         </li>
+        <li class="nav-item @if ($activePage == 'order') active @endif" >
+          <a class="nav-link" href="{{route('order.showlist')}}">
+            <i class="fas fa-sticky-note"></i>
+            <span>Pengajuan Sparepart</span></a>
+        </li>
+      
       
       
       @elseif (Auth::user()->id_role == 2)
-      <li class="nav-item @if ($activePage == 'user') active @endif" >
-        <a class="nav-link" href="{{route('user.showofficerlist')}}">
-          <i class="fas fa-users"></i>
+      {{-- <li class="nav-item @if ($activePage == 'buscheck') active @endif" >
+        <a class="nav-link" href="{{route('buscheck.requestcheck')}}">
+          <i class="fas fa-bus-alt"></i>
           <span>Pengecekan Bus</span></a>
-      </li>
-      <li class="nav-item @if ($activePage == 'user') active @endif" >
-        <a class="nav-link" href="{{route('user.showofficerlist')}}">
+      </li> --}}
+      <li class="nav-item @if ($activePage == 'workshop') active @endif" >
+        <a class="nav-link" href="{{route('workshop.historyworkshop')}}">
           <i class="fas fa-users"></i>
           <span>Surat Tugas</span></a>
       </li>
-      <li class="nav-item @if ($activePage == 'user') active @endif" >
-        <a class="nav-link" href="{{route('user.showofficerlist')}}">
+      <li class="nav-item @if ($activePage == 'buspermit') active @endif" >
+        <a class="nav-link" href="{{route('permits.request')}}">
           <i class="fas fa-users"></i>
-          <span>Izin Keluar Kendaraan</span></a>
+          <span>Kendaraan</span></a>
       </li>
+      <li class="nav-item @if ($activePage == 'sparepartorder') active @endif" >
+        <a class="nav-link" href="{{route('order.addorder')}}">
+          <i class="fas fa-users"></i>
+          <span>Pengajuan Sparepart</span></a>
+      </li>
+
 
       @elseif(Auth::user()->id_role==3)
        

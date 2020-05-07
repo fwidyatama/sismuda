@@ -30,7 +30,7 @@ class UserController extends Controller
         if ($filter) {
             $users = User::where('name', 'LIKE', "%$filter%")->paginate(10);;
         } else {
-            $users = User::paginate(5);
+            $users = User::paginate(10);
         }
         return view('coordinator.officer.dashboard', ['users' => $users]);
     }

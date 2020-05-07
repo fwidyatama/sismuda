@@ -14,7 +14,7 @@ class BusCheckingController extends Controller
 {
     //
    public function showCheckingForm(){
-       return view('crew.buschecking');
+       return view('officer.mechanic.buschecking');
    }
 
    public function storeBusChecking(Request $request){
@@ -33,7 +33,7 @@ class BusCheckingController extends Controller
         $check->user_id = Auth::user()->id;
         $check->hull_code = $request->hull_code;
         $check->complaint = $request->complaint;
-       $check->date = Carbon::now();
+        $check->date = Carbon::now();
        
        
        $check->save();

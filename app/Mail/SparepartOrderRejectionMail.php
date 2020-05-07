@@ -3,10 +3,11 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BusCheckMail extends Mailable
+class SparepartOrderRejectionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +29,7 @@ class BusCheckMail extends Mailable
     public function build()
     {
         return $this->from('widyatama13@gmail.com')
-        ->subject('Pengajuan Pengecekan Bus')
-        ->view('email.buscheck');
+        ->subject('Penolakan Pengajuan Suku Cadang')
+        ->view('email.sparepartrejectorder');
     }
 }

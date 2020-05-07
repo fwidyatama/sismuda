@@ -31,7 +31,7 @@
   
   
   
-  <div style="margin-top:6%" class="card shadow">
+  <div style="margin-top:8%" class="card shadow">
     <div class="card-body">
       <div class="table-responsive">
         <table class="table align-items-center table-flush" id="officer-table" width="100%" cellspacing="0">
@@ -43,6 +43,7 @@
               <th>Pekerjaan</th>
               <th>Keluhan</th>
               <th>Tanggal</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -66,6 +67,12 @@
                         <td>{{ $workshop['work_type'] }}</td>
                         <td>{{ $workshop['detail'] }}</td>
                         <td>{{ $workshop['order_date'] }}</td>
+                        {{-- <td>{{ $workshop['status'] }}</td> --}}
+                        @if ($workshop['status']==0)
+                            <td style="font-weight: bold">Belum Selesai</td>
+                        @else
+                            <td>Selesai</td>
+                        @endif
                         <td>
                           <a href="#" data-id="{{$workshop['workshopnumber']}}" class="btn btn-danger btn-sm delete-workshop">Delete</a>
                           {{-- <a class="btn btn-info text-white btn-sm" href="{{route('workshop.editworkshop',[$workshop['workshopnumber']])}}">Edit</a> --}}

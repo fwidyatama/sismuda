@@ -106,7 +106,10 @@
         enctype="multipart/form-data">
         @csrf
 
-     
+        <div class="form-group">
+            <label>Nomor Surat</label><br>
+           <input type="number" name="workshop_number"  id="workshop_number" class="form-control"/>
+       </div>
         <div class="form-group">
             <label>Kode Lambung</label><br>
            <select name="hull_code"  id="hull_code" class="form-control"></select>
@@ -147,7 +150,7 @@
     $(document).ready(function(){
         $('#user').select2({
         ajax: {
-            url: 'http://localhost:8000/workshop/user',
+            url: 'http://localhost:8000/user',
             delay: 500,
             processResults: function (data) {
                 return {
@@ -166,7 +169,7 @@
     $(hull_code).ready(function(){
         $('#hull_code').select2({
         ajax: {
-            url: 'http://localhost:8000/workshop/bus',
+            url: 'http://localhost:8000/bus',
             delay: 500,
             processResults: function (data) {
                 return {

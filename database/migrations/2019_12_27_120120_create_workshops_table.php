@@ -18,9 +18,10 @@ class CreateWorkshopsTable extends Migration
             $table->bigInteger('hull_code')->unsigned()->default(null)->onDelete('cascade');   
             $table->bigInteger('user_id')->unsigned()->default(null)->onDelete('cascade');
             $table->date('order_date');
-            $table->integer('workshop_number');
+            $table->integer('workshop_number')->default(1);
             $table->string('note');
             $table->string('work_type');
+            $table->boolean('status')->default(0);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('hull_code')->references('hull_code')->on('buses');
             $table->timestamps();

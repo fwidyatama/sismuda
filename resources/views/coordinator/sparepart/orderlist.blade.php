@@ -1,5 +1,5 @@
-@extends('layouts.app',['activePage'=>'sparepart'])
-@section('title','Dashboard Sparepart')
+@extends('layouts.app',['activePage'=>'order'])
+@section('title','Dashboard Order Sparepart')
 
 @section('content')
 @if(session('status'))
@@ -10,25 +10,9 @@
 
 
 <div class="d-sm-flex align-items-center justify-content-between ">
-  <h1 class="h3 mb-0 text-gray-800">Dashboard Sparepart</h1>
+  <h1 class="h3 mb-0 text-gray-800">Dashboard Pengajuan Sparepart</h1>
 </div>
 
-<form action="{{route('sparepart.showsparepartlist')}}" class="form-inline my-2">
-  <div class="form-group ">
-      <input value="{{Request::get('keyword')}}" name="keyword" class="form-control input-lg" type="text"
-          placeholder="Cari sukucadang" />
-  </div>
-  <div class="form-group mx-4 ">
-      <input type="submit" value="Filter" class="btn btn-primary">
-  </div>
-
-</form>
-
-
-<div class="d-sm-flex float-right  ">
-  <a href="{{route('sparepart.downloadreport')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Laporan Stok</a>
-  <a href="{{route('sparepart.addsparepart')}}" style="padding-bottom: 2%" class="btn btn-primary">Tambah Sparepart</a>
-</div>
 
 
 <div style="margin-top:8%" class="card shadow">
@@ -38,12 +22,14 @@
         <thead class="thead-light">
           <tr >
             <th  style="text-align: center">Nomor</th>
-            <th>Kode</th>
-            <th>Nama</th>
-            <th>Merk</th>
+            <th>Kode Lambung</th>
+            <th>Nama Barang</th>
+            <th>Nama Petugas</th>
             <th>Jumlah</th>
             <th>Satuan</th>
-            <th>Harga Satuan</th>
+            <th>Tanggal</th>
+            <th>Jenis</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -54,22 +40,37 @@
               @else
               @foreach ($spareparts as $number => $sparepart)
               <tr>
-                <td style="text-align: center">{{++$number}}</td>
-                <td>{{$sparepart->code}}</td>
-                <td>{{$sparepart->name}}</td>
-                <td>{{$sparepart->brand}}</td>
-                <td>{{$sparepart->quantity}}</td>
+                <td  style="text-align: center">{{++$number}}</td>
+                <td>{{$sparepart->hull_code}}</td>
+                <td>{{$sparepart->sparepart_name}}</td>
+                <td>{{$sparepart->user_name}}</td>
+                <td  style="text-align: center">{{$sparepart->quantity}}</td>
                 <td>{{$sparepart->unit_name}}</td>
-                <td>{{$sparepart->price}}</td>
-            <td>
-              <a class="btn btn-info text-white btn-sm" href="{{route('sparepart.editsparepart',[$sparepart->id])}}">Edit</a>
-              <a href="#" data-id="{{$sparepart->id}}" class="btn btn-danger btn-sm delete-sparepart">Delete</a>
-            </td>
+                <td>{{$sparepart->date}}</td>
+                @if ($sparepart->type=='new')
+                    <td>Baru</td>
+                @else
+                    <td>Bekas</td>
+                @endif
+                @if ($sparepart->status==0)
+                    <td style="font-weight: bold"> Belum Disetujui</td>
+                @elseif($sparepart->status==1)
+                  <td>Sudah Disetujui</td>
+                  @elseif($sparepart->status==2)
+                  <td>Ditolak</td>
+                @endif
+
+                <td>
+                  <a class="btn btn-info text-white btn-sm" href="{{route('order.detailorder',$sparepart->id)}}">Verifikasi</a>
+                </td>
+          
+             
           </tr>
           @endforeach
           @endif
+         
         </tbody>
-
+        
       </table>
       {{$spareparts->links()}}
     </div>

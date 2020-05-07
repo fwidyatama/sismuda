@@ -17,7 +17,7 @@ class CreateBusPermitsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('hull_code')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->boolean('status');
+            $table->integer('workshop_number');
             $table->string('note');
             $table->date('date');
             $table->foreign('hull_code')->references('hull_code')->on('buses');

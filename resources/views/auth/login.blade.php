@@ -24,8 +24,10 @@
 
   <div class="container">
 
+
     <!-- Outer Row -->
     <div class="row justify-content-center">
+   
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 
@@ -37,9 +39,15 @@
                   <img src="https://image.freepik.com/free-vector/people-putting-puzzle-pieces-together_52683-28610.jpg" style="width:500px;"/>
               </div>
               <div class="col-lg-6">
+                @section('content')
+                @if(session('status'))
+                <div class="alert alert-danger text-center">
+                  {{session('status')}}
+                </div>
+                @endif
                 <div class="m-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
                   </div>
                   <form class="user" method="POST" action="{{ route('login') }}">
                     @csrf
@@ -61,12 +69,7 @@
                             </span>
                         @endif
                     </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div>
+                   
                     <button type="submit" class="btn-block btn btn-primary">
                         {{ __('Login') }}
                     </button>

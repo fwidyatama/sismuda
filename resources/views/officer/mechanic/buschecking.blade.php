@@ -1,4 +1,4 @@
-@extends('layouts.app',['activePage'=>'buschecking'])
+@extends('layouts.app',['activePage'=>'buscheck'])
 @section('title','Pengecekan Bus')
 @section('content')
 

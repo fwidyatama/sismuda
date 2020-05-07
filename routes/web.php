@@ -18,17 +18,8 @@ Route::get('/', function () {
 });
 
 Auth::routes(['register' => false]);
-
-Route::get('message/send', 'UserController@form')->name('message.form');
-Route::post('message/send', 'UserController@send')->name('message.send');
-
-
-
-
 Route::group(['middleware'=>'auth'],function(){
-    
-
-    Route::group(['prefix' => 'officer'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'officer'], function () {
         Route::get('/showofficer','UserController@showofficerlist')->name('user.showofficerlist');
         Route::get('/addofficer','UserController@showOfficerForm')->name('user.addofficer');
         Route::post('/storeofficer','UserController@storeOfficer')->name('user.storeofficer');
@@ -38,7 +29,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/detailofficer/{id}','UserController@showProfile')->name('user.detailofficer');    
     });
 
-    Route::group(['prefix' => 'bus'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'bus'], function () {
         Route::get('/showbus','BusController@showBusList')->name('bus.showbuslist');
         Route::get('/addbus','BusController@showBusForm')->name('bus.addbus');
         Route::post('/storebus','BusController@storeBus')->name('bus.storebus');
@@ -47,7 +38,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/editbus/{hullcode}','BusController@editbus')->name('bus.editbus');
     });
     
-    Route::group(['prefix' => 'sparepart'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'sparepart'], function () {
         Route::get('/showsparepart','SparepartController@showSparepartList')->name('sparepart.showsparepartlist');
         Route::get('/addsparepart','SparepartController@showSparepartForm')->name('sparepart.addsparepart');
         Route::post('/storesparepart','SparepartController@storeSparepart')->name('sparepart.storesparepart');
@@ -58,31 +49,45 @@ Route::group(['middleware'=>'auth'],function(){
         
     });
 
-    Route::group(['prefix' => 'workshop'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'workshop'], function () {
         Route::get('/showworkshop','WorkshopController@showWorkshopList')->name('workshop.showworkshop');
         Route::get('/addworkshop','WorkshopController@showWorkShopForm')->name('workshop.addworkshop');
-        Route::post('/storeworkshop','WorkshopController@storeWorkshop')->name('workshop.storeworkshop');
-        Route::get('/user','WorkshopController@getUserAjax')->name('workshop.getuser');
-        Route::get('/bus','WorkshopController@getBusAjax')->name('workshop.getbus');
+        Route::post('/storeworkshop','WorkshopController@storeWorkshops')->name('workshop.storeworkshop');
         Route::get('/editworkshop/{workshopnumber}','WorkshopController@editWorkshop')->name('workshop.editworkshop');
         Route::post('/updateworkshop/{workshopnumber}','WorkshopController@updateWorkshop')->name('workshop.updateworkshop');
         Route::get('/deleteworkshop/{workshopnumber}','WorkshopController@deleteWorkshop')->name('workshop.destroyworkshop');
+        
     });
 
-    Route::group(['prefix' => 'order'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'sparepartorder'], function () {
+        Route::get('/showorder','SparepartOrderController@showOrderList')->name('order.showlist');
+        Route::get('/detailorder/{id}','SparepartOrderController@detailOrder')->name('order.detailorder');
+        Route::post('/verifyorder/{id}','SparepartOrderController@verifyOrder')->name('order.verifyorder');
+    });
+
+
+    Route::group(['middleware'=>'mechanic','prefix' => 'order'], function () {
         Route::get('/ordersparepart','SparepartOrderController@showOrderForm')->name('order.addorder');
         Route::post('/storeorder','SparepartOrderController@storeOrder')->name('order.storeorder');
-        Route::get('/getsparepart','SparepartOrderController@getSparepart');
+      
+       
     });
-
+    
 
     Route::group(['prefix' => 'buscheck'], function () {
         Route::get('/requestcheck','BusCheckingController@showCheckingForm')->name('buscheck.requestcheck');
         Route::post('/storecheck','BusCheckingController@storeBusChecking')->name('buscheck.storecheck');
     });
-  
     
+    Route::group(['prefix' => 'permits'], function () {
+        Route::get('/showform','BusPermitController@showPermitForm')->name('permits.request');
+        Route::post('/storeform','BusPermitController@storePermit')->name('permits.store');
+    });
+    Route::get('/workshop/history','WorkshopController@showHistory')->name('workshop.historyworkshop')->middleware('mechanic');
     
     
     // Route::get('/getofficerlist','UserController@officerList')->name('user.getofficerlist');
 });
+Route::get('/user','WorkshopController@getUserAjax')->name('workshop.getuser');
+Route::get('/bus','WorkshopController@getBusAjax')->name('workshop.getbus');
+Route::get('/getsparepart','SparepartOrderController@getSparepart');

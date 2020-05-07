@@ -11,11 +11,11 @@
 
 <div class="d-sm-flex align-items-center justify-content-between ">
   <h1 class="h3 mb-0 text-gray-800">Dashboard Bus</h1>
-  <div class="form-group float-right">
-    <a href="{{route('bus.addbus')}}" class="btn btn-primary">Tambah Bus</a>
-  </div>
-</div>
 
+</div>
+<div class="d-sm-flex float-right  ">
+  <a href="{{route('bus.addbus')}}" class="btn btn-primary">Tambah Bus</a>
+</div>
 
 <div class="card shadow my-5">
 
