@@ -58,6 +58,13 @@ class User extends Authenticatable
        ->withTimestamps();
    }
 
+   public function buspermit(){
+       return $this->hasOne('App\Models\BusPermit');
+   }
+
+   public function buscheck(){
+       return $this->hasOne('App\Models\BusCheck');
+   }
 
 
 }

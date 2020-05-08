@@ -40,8 +40,40 @@ class BusCheckingController extends Controller
        
        $coordinatorEmail = User::where('id_role','=','1')->get();
        Mail::to($coordinatorEmail[0]->email)->send(new BusCheckMail());
-       return redirect()->back();
+       return redirect()->back()->with('status','Berhasil melakukan permintaan pengecekan');
     }
        
    }
+
+   public function showBusCheck(){
+       $checkOrders = BusCheck::with('user')->orderBy('date','DESC')->paginate(15);
+
+       return view('coordinator.buscheck.dashboard',['checkOrders'=>$checkOrders]);
+   }
+
+   public function deleteOrder($id){
+       $checkOrder = BusCheck::findOrFail($id);
+       $checkOrder->delete();
+       return redirect()->back()->with('status','Berhasil menghapus permintaan pengecekan');
+
+   }
+
+   public function detailOrder($id){
+    $checkOrder = BusCheck::findOrFail($id);
+    return view('coordinator.buscheck.detail',['checkOrder'=>$checkOrder]);
+   }
+
+   public function verifyOrder(Request $request,$id){
+    $checkOrder = BusCheck::findOrFail($id);
+    if ($request->action == 'approve') {
+        $checkOrder->status = 2;
+        $checkOrder->save();
+        return redirect()->route('buscheck.show')->with('status','Berhasil memverifikasi permintaan pengecekan bus');
+   }
+   else if ($request->action == 'reject') {
+        $checkOrder->status = 1;
+        $checkOrder->save();
+        return redirect()->route('buscheck.show')->with('status','Berhasil memverifikasi permintaan pengecekan bus');
+   }
+}
 }

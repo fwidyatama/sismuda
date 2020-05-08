@@ -47,7 +47,7 @@ $(document).ready(function(){
         $(hull_code).ready(function(){
         $('#hull_code').select2({
         ajax: {
-            url: 'http://localhost:8000/workshop/bus',
+            url: 'http://localhost:8000/bus',
             delay: 500,
             processResults: function (data) {
                 return {

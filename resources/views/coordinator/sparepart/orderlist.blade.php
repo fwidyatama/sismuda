@@ -14,6 +14,10 @@
 </div>
 
 
+<div class="d-sm-flex float-right  ">
+  <a href="{{route('order.download')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Data</a>
+</div>
+
 
 <div style="margin-top:8%" class="card shadow">
   <div class="card-body">
@@ -30,7 +34,7 @@
             <th>Tanggal</th>
             <th>Jenis</th>
             <th>Status</th>
-            <th>Aksi</th>
+            <th style="text-align: center">Aksi</th>
           </tr>
         </thead>
         @if ($spareparts->count()==0)
@@ -55,14 +59,18 @@
                 @if ($sparepart->status==0)
                     <td style="font-weight: bold"> Belum Disetujui</td>
                 @elseif($sparepart->status==1)
-                  <td>Sudah Disetujui</td>
+                  <td>Disetujui</td>
                   @elseif($sparepart->status==2)
                   <td>Ditolak</td>
                 @endif
 
-                <td>
-                  <a class="btn btn-info text-white btn-sm" href="{{route('order.detailorder',$sparepart->id)}}">Verifikasi</a>
-                </td>
+               @if ($sparepart->status==0)
+               <td>
+                <a class="btn btn-info text-white btn-sm" href="{{route('order.detailorder',$sparepart->id)}}">Verifikasi</a>
+              </td>
+              @else
+              <td style="font-weight: bold;text-align: center">-</td>
+               @endif
           
              
           </tr>

@@ -63,6 +63,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/showorder','SparepartOrderController@showOrderList')->name('order.showlist');
         Route::get('/detailorder/{id}','SparepartOrderController@detailOrder')->name('order.detailorder');
         Route::post('/verifyorder/{id}','SparepartOrderController@verifyOrder')->name('order.verifyorder');
+        Route::get('/download/order','SparepartOrderController@downloadList')->name('order.download');
     });
 
 
@@ -73,13 +74,29 @@ Route::group(['middleware'=>'auth'],function(){
        
     });
     
-
+    //belum ada middleware
     Route::group(['prefix' => 'buscheck'], function () {
         Route::get('/requestcheck','BusCheckingController@showCheckingForm')->name('buscheck.requestcheck');
         Route::post('/storecheck','BusCheckingController@storeBusChecking')->name('buscheck.storecheck');
     });
+
+    Route::group(['middleware'=>'coordinator','prefix' => 'permits'], function () {
+        Route::get('/showlist','BusPermitController@showList')->name('permits.showlist');
+        Route::get('/deletelist/{id}','BusPermitController@deleteList')->name('permits.deletelist');
+    });
+
+    Route::group(['prefix' => 'buscheck'], function () {
+        Route::get('/showorder','BusCheckingController@showBusCheck')->name('buscheck.show');
+        Route::get('/deleteorder/{id}','BusCheckingController@deleteOrder')->name('buscheck.delete');
+        Route::get('/detailorder/{id}','BusCheckingController@detailOrder')->name('buscheck.detailorder');
+        Route::post('/verifyorder/{id}','BusCheckingController@verifyOrder')->name('buscheck.verifyorder');
+
+    });
     
-    Route::group(['prefix' => 'permits'], function () {
+
+
+    
+    Route::group(['middleware'=>'mechanic','prefix' => 'permits'], function () {
         Route::get('/showform','BusPermitController@showPermitForm')->name('permits.request');
         Route::post('/storeform','BusPermitController@storePermit')->name('permits.store');
     });

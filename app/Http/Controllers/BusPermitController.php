@@ -21,6 +21,20 @@ class BusPermitController extends Controller
         }
     }
 
+    public function showList(){
+        $permits = BusPermit::with('user')->orderBy('date','DESC')->paginate(15);
+        // dd($permits[0]->user->name);
+
+        return view('coordinator.permits.dashboard',['permits'=>$permits]);
+    }
+
+    public function deleteList($id){
+        $permit = BusPermit::findOrFail($id);
+        $permit->delete();
+
+        return redirect()->back()->with('status','Berhasil menghapus daftar');
+    }
+
     public function showPermitForm(){
         $workshopsNumber = DB::table('workshops')
         ->select('workshops.workshop_number')

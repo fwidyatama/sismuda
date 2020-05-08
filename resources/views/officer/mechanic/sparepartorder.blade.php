@@ -32,7 +32,14 @@
            <table class="table table-bordered table-striped" id="user_table">
 
            <tbody>
-            <div class="form-group"> <label>Barang</label><br> <select name="sparepart[]" id="sparepart" class="form-control"> @foreach ($spareparts as $sparepart) <option value="{{$sparepart->id}}">{{$sparepart->name}}</option>@endforeach</select></div>
+            <div class="form-group"> <label>Barang</label><br> <select name="sparepart[]" id="sparepart" class="form-control">
+                <option value="">Pilih Suku Cadang</option>
+                @foreach ($spareparts as $sparepart) 
+                <option value="{{$sparepart->id}}">{{$sparepart->name}}
+                </option>
+                @endforeach
+            </select>
+        </div>
             <div class="form-group"><label for="quantity">Jumlah</label><input type="number" name="quantity[]" placeholder="Jumlah" class="form-control"/></div>
             <div class="form-group"><label for="unit_name">Satuan</label><input class="form-control" placeholder="Nama Satuan" type="text" name="unit_name[]" id="unit_name" /></div>
            </tbody>

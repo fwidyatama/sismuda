@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrderList;
 use App\Mail\SparepartOrderMail;
 use App\Mail\SparepartOrderRejectionMail;
 use Auth;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Mail;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class SparepartOrderController extends Controller
 {
@@ -140,5 +141,9 @@ class SparepartOrderController extends Controller
         $keyword = $request->q;
         $sparepart = \App\Models\Sparepart::all();
         return $sparepart;
+    }
+
+    public function downloadList(){
+        return Excel::download(new OrderList, 'Sparepart Order.xlsx');
     }
 }

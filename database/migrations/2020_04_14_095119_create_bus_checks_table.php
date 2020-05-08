@@ -19,7 +19,7 @@ class CreateBusChecksTable extends Migration
             $table->bigInteger('hull_code')->unsigned();
             $table->longText('complaint');
             $table->date('date');
-            $table->boolean('status')->default(0);
+            $table->integer('status')->default(0);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('hull_code')->references('hull_code')->on('buses');
             $table->timestamps();

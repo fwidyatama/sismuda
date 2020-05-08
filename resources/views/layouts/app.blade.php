@@ -63,6 +63,17 @@
             <i class="fas fa-sticky-note"></i>
             <span>Pengajuan Sparepart</span></a>
         </li>
+        <li class="nav-item @if ($activePage == 'permits') active @endif" >
+          <a class="nav-link" href="{{route('permits.showlist')}}">
+            <i class="fas fa-sticky-note"></i>
+            <span>Keluar Kendaraan</span></a>
+        </li>
+        <li class="nav-item @if ($activePage == 'buscheck') active @endif" >
+          <a class="nav-link" href="{{route('buscheck.show')}}">
+            <i class="fas fa-sticky-note"></i>
+            <span>Pengecekan Bus</span></a>
+        </li>
+      
       
       
       
