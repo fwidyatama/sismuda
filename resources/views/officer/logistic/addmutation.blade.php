@@ -59,7 +59,7 @@
         </div>
 
 
-        <input class="btn btn-primary" type="submit" value="Ajukan" />
+        <input class="btn btn-primary" type="submit" value="Simpan" />
     </form>
     
 </div>

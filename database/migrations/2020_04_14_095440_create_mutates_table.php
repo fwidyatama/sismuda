@@ -22,6 +22,7 @@ class CreateMutatesTable extends Migration
             $table->integer('quantity'); 
             $table->integer('price');
             $table->enum('type',['new','second']);
+            $table->integer('total');
             $table->foreign('user_id')->references('id')->on('users');    
             $table->foreign('sparepart_id')->references('id')->on('spareparts');    
             $table->timestamps();

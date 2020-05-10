@@ -14,12 +14,47 @@
 </div>
 
 
+
 <div class="d-sm-flex float-right  ">
   <a href="{{route('mutation.add')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Tambah Data</a>
+ 
 </div>
 
 
-<div style="margin-top:8%" class="card shadow">
+<form action="{{route('mutation.show')}}" class="form-row my-2 ">   
+  <div class="form-group mx-1">
+    <select name="month" class="form-control" id="date" >Bulan
+        <option value="01" {{Request::get('month')=="01"?'selected':''}}>Januari</option>
+        <option value="02"{{Request::get('month')=="02"?'selected':''}}>Februari</option>
+        <option value="03"{{Request::get('month')=="03"?'selected':''}}>Maret</option>
+        <option value="04"{{Request::get('month')=="04"?'selected':''}}>April</option>
+        <option value="05"{{Request::get('month')=="05"?'selected':''}}>Mei</option>
+        <option value="06"{{Request::get('month')=="06"?'selected':''}}>Juni</option>
+        <option value="07"{{Request::get('month')=="07"?'selected':''}}>Juli</option>
+        <option value="08"{{Request::get('month')=="08"?'selected':''}}>Agustus</option>
+        <option value="09"{{Request::get('month')=="09"?'selected':''}}>September</option>
+        <option value="10"{{Request::get('month')=="10"?'selected':''}}>Oktober</option>
+        <option value="11"{{Request::get('month')=="11"?'selected':''}}>November</option>
+        <option value="12"{{Request::get('month')=="10"?'selected':''}}>Desmber</option>
+      </select>
+  </div>
+
+  <div class="form-group mx-1 ">
+  <input value="{{Request::get('year')}}" name="year" class="form-control" type="text"
+          placeholder="Tahun" />
+  </div>
+ 
+      <div class="form-group mx-1">
+        <button class="btn btn-primary" name="action" value="filter">Filter</button>
+        <button class="btn btn-success" name="action" value="download">Unduh Laporan</button> 
+         {{-- <a href="{{route('mutation.download')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Laporan</a> --}}
+      
+      
+    </div>
+</form>
+
+
+<div style="margin-top:5%" class="card shadow">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table align-items-center table-flush" id="officer-table" width="100%" cellspacing="0">
@@ -52,7 +87,7 @@
                 @endif
                 <td>{{$mutation->date}}</td>
                 <td  style="text-align: center">{{$mutation->quantity}}</td>
-                <td  style="text-align: center">{{$mutation->stock}}</td>
+                <td  style="text-align: center">{{$mutation->total}}</td>
                 @if ($mutation->type=='new')
                     <td>Baru</td>
                 @else

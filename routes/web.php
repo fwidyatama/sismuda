@@ -85,7 +85,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/deletelist/{id}','BusPermitController@deleteList')->name('permits.deletelist');
     });
 
-    Route::group(['prefix' => 'buscheck'], function () {
+    Route::group(['middleware'=>'coordinator','prefix' => 'buscheck'], function () {
         Route::get('/showorder','BusCheckingController@showBusCheck')->name('buscheck.show');
         Route::get('/deleteorder/{id}','BusCheckingController@deleteOrder')->name('buscheck.delete');
         Route::get('/detailorder/{id}','BusCheckingController@detailOrder')->name('buscheck.detailorder');
@@ -93,18 +93,16 @@ Route::group(['middleware'=>'auth'],function(){
 
     });
     
-
-
-    
     Route::group(['middleware'=>'mechanic','prefix' => 'permits'], function () {
         Route::get('/showform','BusPermitController@showPermitForm')->name('permits.request');
         Route::post('/storeform','BusPermitController@storePermit')->name('permits.store');
     });
 
-    Route::group(['prefix' => 'mutation'], function () {
+    Route::group(['middleware'=>'logistic','prefix' => 'mutation'], function () {
         Route::get('/addmutation','MutationController@addMutation')->name('mutation.add');
         Route::post('/storemutation','MutationController@storeMutations')->name('mutation.store');
         Route::get('/showall','MutationController@showMutation')->name('mutation.show');
+        Route::get('/downloadreport','MutationController@downloadReport')->name('mutation.download');
     });
 
     Route::get('/workshop/history','WorkshopController@showHistory')->name('workshop.historyworkshop')->middleware('mechanic');

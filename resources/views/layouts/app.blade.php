@@ -98,7 +98,7 @@
           <span>Sparepart</span></a>
       </li>
       <li class="nav-item @if ($activePage == 'mutation') active @endif" >
-        <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
+        <a class="nav-link" href="{{route('mutation.show')}}">
           <i class="fas fa-tools"></i>
           <span>Mutasi Sparepart</span></a>
       </li>
