@@ -48,11 +48,7 @@
             <i class="fas fa-bus-alt"></i>
             <span>Bus</span></a>
         </li>
-        <li class="nav-item @if ($activePage == 'sparepart') active @endif" >
-          <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
-            <i class="fas fa-tools"></i>
-            <span>Sparepart</span></a>
-        </li>
+       
         <li class="nav-item @if ($activePage == 'workshop') active @endif" >
           <a class="nav-link" href="{{route('workshop.showworkshop')}}">
             <i class="fas fa-sticky-note"></i>
@@ -60,12 +56,12 @@
         </li>
         <li class="nav-item @if ($activePage == 'order') active @endif" >
           <a class="nav-link" href="{{route('order.showlist')}}">
-            <i class="fas fa-sticky-note"></i>
+            <i class="fas fa-users-cog"></i>
             <span>Pengajuan Sparepart</span></a>
         </li>
         <li class="nav-item @if ($activePage == 'permits') active @endif" >
           <a class="nav-link" href="{{route('permits.showlist')}}">
-            <i class="fas fa-sticky-note"></i>
+            <i class="fas fa-bus"></i>
             <span>Keluar Kendaraan</span></a>
         </li>
         <li class="nav-item @if ($activePage == 'buscheck') active @endif" >
@@ -78,11 +74,6 @@
       
       
       @elseif (Auth::user()->id_role == 2)
-      {{-- <li class="nav-item @if ($activePage == 'buscheck') active @endif" >
-        <a class="nav-link" href="{{route('buscheck.requestcheck')}}">
-          <i class="fas fa-bus-alt"></i>
-          <span>Pengecekan Bus</span></a>
-      </li> --}}
       <li class="nav-item @if ($activePage == 'workshop') active @endif" >
         <a class="nav-link" href="{{route('workshop.historyworkshop')}}">
           <i class="fas fa-users"></i>
@@ -101,29 +92,29 @@
 
 
       @elseif(Auth::user()->id_role==3)
-       
       <li class="nav-item @if ($activePage == 'sparepart') active @endif" >
         <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
           <i class="fas fa-tools"></i>
           <span>Sparepart</span></a>
       </li>
-      <li class="nav-item @if ($activePage == 'sparepart') active @endif" >
+      <li class="nav-item @if ($activePage == 'mutation') active @endif" >
         <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
           <i class="fas fa-tools"></i>
-          <span>Mutasi Suku Cadang</span></a>
+          <span>Mutasi Sparepart</span></a>
       </li>
-      <li class="nav-item @if ($activePage == 'sparepart') active @endif" >
-        <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
+      <li class="nav-item @if ($activePage == 'sparepartverif') active @endif" >
+        <a class="nav-link" href="{{route('sparepart.accepted')}}">
           <i class="fas fa-tools"></i>
-          <span>Pengajuan Suku Cadang</span></a>
+          <span>Sparepart Terverifikasi</span></a>
       </li>
       @elseif(Auth::user()->id_role==4)
-      <li class="nav-item @if ($activePage == 'sparepart') active @endif" >
-        <a class="nav-link" href="{{route('sparepart.showsparepartlist')}}">
-          <i class="fas fa-tools"></i>
-          <span>Pengajuan Pengecekan Bus</span></a>
+      <li class="nav-item @if ($activePage == 'buscheck') active @endif" >
+        <a class="nav-link" href="{{route('buscheck.requestcheck')}}">
+          <i class="fas fa-bus"></i>
+          <span>Pengecekan Bus</span></a>
       </li>
 
+      
       @endif
    
 
@@ -164,13 +155,15 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="mr-2">
+                  <i class=" fas fa-user"></i>
+                  </div>
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                {{-- <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> --}}
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                 
+                <a class="dropdown-item" href="{{route('profile',Auth::user()->id)}}">
                   Profile
                 </a>
                

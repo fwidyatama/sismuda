@@ -38,7 +38,7 @@
 
         <div class="form-group  {{ $errors->has('hull_code') ? ' has-danger' : '' }}">
             <label for="hull_code">Kode Lambung</label>
-            <input type="text" name="hull_code" class="form-control {{ $errors->has('hull_code') ? ' is-invalid' : '' }}" value ="{{$bus->hull_code}}" />
+            <input type="text" disabled name="hull_code" class="form-control {{ $errors->has('hull_code') ? ' is-invalid' : '' }}" value ="{{$bus->hull_code}}" />
             @include('layouts.alerts', ['field' => 'hull_code'])
         </div>
 

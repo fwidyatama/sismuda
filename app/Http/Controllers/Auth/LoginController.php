@@ -39,6 +39,14 @@ class LoginController extends Controller
                 $this->redirectTo = '/workshop/history';
                 return $this->redirectTo;
             break;
+            case 3:
+                $this->redirectTo = '/sparepart/showsparepart';
+                return $this->redirectTo;
+            break;
+            case 4:
+                $this->redirectTo = '/buscheck/requestcheck';
+                return $this->redirectTo;
+            break;
         }
     }
 

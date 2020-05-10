@@ -40,7 +40,7 @@
         @if ($spareparts->count()==0)
        
         <tbody>
-          <td colspan="8" style="text-align: center;padding-top: 3%">Tidak ada suku cadang</td>
+          <td colspan="8" style="text-align: center;padding-top: 3%">Belum ada pengajuan suku cadangg</td>
               @else
               @foreach ($spareparts as $number => $sparepart)
               <tr>

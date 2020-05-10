@@ -72,7 +72,7 @@ class SparepartOrderController extends Controller
         if ($request->action == 'approve') {
             $sparepart->status = '1';
             $sparepart->save();
-            return redirect()->route('order.showlist')->with('status', 'Berhasil Menyetujui Pengajuan Suku Cadang');
+            return redirect()->route('order.showlist')->with('status', 'Berhasil memverifikasi pengajuan suku cadang');
         } else if ($request->action == 'reject') {
             $data = DB::table('orders')
                 ->join('users', 'users.id', '=', 'orders.user_id')
@@ -84,7 +84,7 @@ class SparepartOrderController extends Controller
             $sparepart->save();
             Mail::to($data->email)->send(new SparepartOrderRejectionMail());
 
-            return redirect()->route('order.showlist')->with('status', 'Berhasil Menolak Pengajuan Suku Cadang');
+            return redirect()->route('order.showlist')->with('status', 'Berhasil memverifikasi pengajuan suku cadang');
         }
     }
 
@@ -145,5 +145,18 @@ class SparepartOrderController extends Controller
 
     public function downloadList(){
         return Excel::download(new OrderList, 'Sparepart Order.xlsx');
+    }
+
+    public function acceptedOrder(){
+        $spareparts = DB::table('orders')
+        ->join('users', 'users.id', '=', 'orders.user_id')
+        ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
+        ->select('orders.*', 'users.name as user_name', 'spareparts.name as sparepart_name')
+        ->where('orders.status','=','1')
+        ->orderByDesc('date')
+        ->paginate(10);
+
+    // dd($spareparts);
+        return view('officer.logistic.sparepart', ['spareparts' => $spareparts]);
     }
 }

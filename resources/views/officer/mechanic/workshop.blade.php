@@ -36,7 +36,7 @@
           @if (count($workshops) == 0)
     
           <tbody>
-            <td colspan="8" style="text-align: center;padding-top: 3%">Tidak ada surat tugas yang dibuat</td>
+            <td colspan="8" style="text-align: center;padding-top: 3%">Belum ada surat tugas yang dibuat</td>
                 @else
   
                 @foreach ($workshops as $index => $workshop)

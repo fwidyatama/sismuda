@@ -85,6 +85,11 @@ class UserController extends Controller
         return view('coordinator.officer.edit', ['user' => $user]);
     }
 
+    public function showDetail($id){
+        $user = User::findOrFail($id);
+        return view('coordinator.officer.detail', ['user' => $user]);
+    }
+
     public function updateOfficer(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -94,7 +99,7 @@ class UserController extends Controller
             'role' => 'required',
             'phone' => 'required|numeric',
             'address' => 'required|min:10',
-            'password' => 'required|min:5'
+            // 'password' => 'required|min:5'
         ]);
 
         if ($validator->fails()) {
@@ -109,30 +114,52 @@ class UserController extends Controller
             $user->phone_number = $request->phone;
             $user->expertness = $request->expertness;
             $user->address = $request->address;
-            $user->password = \Hash::make($request->password);
+            // $user->password = \Hash::make($request->password);
 
             $user->save();
             return redirect()->route('user.showofficerlist')->with('status', 'Berhasil mengubah data karyawan');
         }
     }
 
+   
     public function showProfile($id){
         $user = User::findOrFail($id);
-        return view('coordinator.officer.detail', ['user' => $user]);
+        return view('profile', ['user' => $user]);
     }
+
+    public function editProfile($id){
+        $user = User::findOrFail($id);
+        return view('editprofile', ['user' => $user]);
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'username' => 'required|min:3',
+            'email' => 'required|min:3',
+            'phone' => 'required|numeric',
+            'address' => 'required|min:10',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->phone_number = $request->phone;
+            $user->expertness = $request->expertness;
+            $user->address = $request->address;
+
+            $user->save();
+            return redirect()->back()->with('status', 'Berhasil mengubah profil');
+        }
+    }
+
 
     
-
-    public function send()
-    {
-        Sms::via('smsgatewayme')->send("this message", function($sms) {
-            $sms->to(['']);
-        });
-    }
-
-    public function form(){
-        return view ('form');
-    }
-
   
 }

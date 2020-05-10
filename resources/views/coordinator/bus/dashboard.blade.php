@@ -32,7 +32,10 @@
             <th>Action</th>
           </tr>
         </thead>
+        @if ($buses->count()==0)
         <tbody>
+          <td colspan="6" style="text-align: center;padding-top: 3%">Belum ada data bus</td>
+          @else
           @foreach ($buses as $bus)
           <tr>
             <td>{{$bus->brand}}</td>
@@ -46,6 +49,7 @@
             </td>
           </tr>
           @endforeach
+          @endif
         </tbody>
 
       </table>

@@ -14,7 +14,7 @@ class BusCheckingController extends Controller
 {
     //
    public function showCheckingForm(){
-       return view('officer.mechanic.buschecking');
+       return view('officer.crew.buschecking');
    }
 
    public function storeBusChecking(Request $request){

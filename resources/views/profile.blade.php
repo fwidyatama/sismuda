@@ -1,17 +1,20 @@
-@extends('layouts.app',['activePage'=>'user'])
-@section('title','Profil karyawan')
+@extends('layouts.app',['activePage'=>'profile'])
+@section('title','Profil')
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between ">
-    <h1 class="h3 mb-0 text-gray-800">Profil</h1>
+    <h1 class="h3 mb-0 text-gray-800">Profil Saya</h1>
 </div>
+
+
+<div class="d-sm-flex float-right  ">
+    <a href="{{route('editprofile',[$user->id])}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Ubah Profil</a>
+  </div>
+  
 <div class="my-3">
 
-    
-    
     <form class="bg-white shadow-sm p-3" 
         enctype="multipart/form-data">
-
         
         @csrf
 

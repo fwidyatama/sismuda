@@ -38,6 +38,7 @@
           <thead class="thead-light">
             <tr >
               <th  style="text-align: center">No.</th>
+              <th >No. Surat</th>
               <th>Kode HT</th>
               <th style="text-align: center">Nama</th>
               <th>Pekerjaan</th>
@@ -56,6 +57,7 @@
                 @foreach ($workshops as $index => $workshop)
                 <tr>
                         <td>{{ $index + 1 }}</td>
+                        <td>{{ $workshop['workshopnumber'] }}</td>
                         <td>{{ $workshop['hull_code'] }}</td>
                         <td>
                             <ul>

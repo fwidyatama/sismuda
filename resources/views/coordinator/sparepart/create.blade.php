@@ -12,22 +12,11 @@
         enctype="multipart/form-data">
         @csrf
 
-        <div class="form-group {{ $errors->has('code') ? ' has-danger' : '' }}" >
-            <label for="name">Kode Barang</label>
-            <input class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" value="{{ old('code') }}"  placeholder="Kode Barang" type="text" name="code" id="code" />
-            @include('layouts.alerts', ['field' => 'code'])
-        </div>
 
         <div class="form-group {{ $errors->has('name') ? ' has-danger' : '' }}">
             <label for="name">Nama Barang</label>
             <input class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="name" type="text" name="name" id="name" value ="{{old('name')}}"/>
             @include('layouts.alerts', ['field' => 'name'])
-        </div>
-
-        <div class="form-group {{ $errors->has('brand') ? ' has-danger' : '' }}">
-            <label for="brand">Merek</label>
-            <input class="form-control {{ $errors->has('brand') ? ' is-invalid' : '' }}" placeholder="Merek" type="text" name="brand" id="brand" value ="{{old('brand')}}"/>
-            @include('layouts.alerts', ['field' => 'brand'])
         </div>
 
         <div class="form-group {{ $errors->has('quantity') ? ' has-danger' : '' }}">

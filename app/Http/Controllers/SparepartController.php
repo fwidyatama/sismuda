@@ -60,9 +60,7 @@ class SparepartController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'code'=>'required',
             'name'=>'required',
-            'brand' => 'required|max:30',
             'quantity' => 'required|numeric',
             'unit_name' => 'required|max:10',
             'price' => 'required|numeric',
@@ -75,9 +73,7 @@ class SparepartController extends Controller
         } 
         else{
             $bus = new Sparepart();
-            $bus->code = $request->code;
             $bus->name = $request->name;
-            $bus->brand = $request->brand;
             $bus->quantity = $request->quantity;
             $bus->unit_name = $request->unit_name;
             $bus->price = $request->price;
@@ -109,9 +105,7 @@ class SparepartController extends Controller
     public function updateSparepart(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'code'=>'required',
             'name'=>'required',
-            'brand' => 'required|max:30',
             'quantity' => 'required|numeric',
             'unit_name' => 'required|max:10',
             'price' => 'required|numeric',
@@ -124,9 +118,7 @@ class SparepartController extends Controller
         } 
         else{
             $bus = Sparepart::findOrFail($id);
-            $bus->code = $request->code;
             $bus->name = $request->name;
-            $bus->brand = $request->brand;
             $bus->quantity = $request->quantity;
             $bus->unit_name = $request->unit_name;
             $bus->price = $request->price;

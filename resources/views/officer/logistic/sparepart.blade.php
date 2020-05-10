@@ -1,5 +1,5 @@
-@extends('layouts.app',['activePage'=>'permits'])
-@section('title','Dashboard Perbaikan')
+@extends('layouts.app',['activePage'=>'sparepartverif'])
+@section('title','Dashboard Sparepart')
 
 @section('content')
 @if(session('status'))
@@ -10,12 +10,12 @@
 
 
 <div class="d-sm-flex align-items-center justify-content-between ">
-  <h1 class="h3 mb-0 text-gray-800">Dashboard Kendaraan Selesai</h1>
+  <h1 class="h3 mb-0 text-gray-800">Sparepart Terverifikasi</h1>
 </div>
 
 
 
-<div style="margin-top:3%" class="card shadow">
+<div style="margin-top:8%" class="card shadow">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table align-items-center table-flush" id="officer-table" width="100%" cellspacing="0">
@@ -23,36 +23,42 @@
           <tr >
             <th  style="text-align: center">Nomor</th>
             <th>Kode Lambung</th>
-            <th>No. Surat Tugas</th>
+            <th>Nama Barang</th>
             <th>Nama Petugas</th>
-            <th>Catatan</th>
+            <th>Jumlah</th>
+            <th>Satuan</th>
             <th>Tanggal</th>
-            <th>Aksi</th>
+            <th>Jenis</th>
           </tr>
         </thead>
-        @if ($permits->count()==0)
+        @if ($spareparts->count()==0)
        
         <tbody>
-          <td colspan="4" style="text-align: center;padding-top: 3%">Belum ada kendaraan yang selesai diperbaiki</td>
+          <td colspan="8" style="text-align: center;padding-top: 3%">Tidak ada suku cadang</td>
               @else
-              @foreach ($permits as $number => $permit)
+              @foreach ($spareparts as $number => $sparepart)
               <tr>
-                <td style="text-align: center">{{++$number}}</td>
-                <td>{{$permit->hull_code}}</td>
-                <td>{{$permit->workshop_number}}</td>
-                <td>{{$permit->user->name}}</td>
-                <td>{{$permit->note}}</td>
-                <td>{{$permit->date}}</td>
-            <td>
-              <a href="#" data-id="{{$permit->id}}" class="btn btn-danger btn-sm delete-permit">Delete</a>
-            </td>
+                <td  style="text-align: center">{{++$number}}</td>
+                <td>{{$sparepart->hull_code}}</td>
+                <td>{{$sparepart->sparepart_name}}</td>
+                <td>{{$sparepart->user_name}}</td>
+                <td  style="text-align: center">{{$sparepart->quantity}}</td>
+                <td>{{$sparepart->unit_name}}</td>
+                <td>{{$sparepart->date}}</td>
+                @if ($sparepart->type=='new')
+                <td>Baru</td>
+            @else
+                <td>Bekas</td>
+            @endif
+             
           </tr>
           @endforeach
           @endif
+         
         </tbody>
-
+        
       </table>
-      {{$permits->links()}}
+      {{$spareparts->links()}}
     </div>
   </div>
 </div>
@@ -66,7 +72,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
-  $('.delete-permit').click(function () {
+  $('.delete-sparepart').click(function () {
     var userId = $(this).data('id');
     console.log(userId)
     event.preventDefault();
@@ -77,7 +83,7 @@
       buttons: ["Tidak", "Ya"],
     }).then(function (value) {
       if (value) {
-        window.location.href = "deletelist/" + userId;
+        window.location.href = "deletesparepart/" + userId;
       }
     });
   });

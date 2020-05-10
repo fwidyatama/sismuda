@@ -1,13 +1,17 @@
 @extends('layouts.app',['activePage'=>'user'])
 @section('title','Edit karyawan')
 @section('content')
-
+@if(session('status'))
+<div class="alert alert-success">
+  {{session('status')}}
+</div>
+@endif
 <div class="d-sm-flex align-items-center justify-content-between ">
     <h1 class="h3 mb-0 text-gray-800">Edit Data Karyawan</h1>
 </div>
 <div class="my-3">
         
-    <form action="{{ route('user.updateofficer',[$user->id]) }}" class="bg-white shadow-sm p-3" method="POST"
+    <form action="{{ route('updateprofile',[$user->id]) }}" id="profile" class="bg-white shadow-sm p-3" method="POST"
         enctype="multipart/form-data">
 
         @csrf
@@ -33,16 +37,16 @@
         <div class="form-group  {{ $errors->has('role') ? ' has-danger' : '' }}">
             <label for="role">Role</label>
             <br />
-            <input type="radio" name="role" id="koordinator" value="1"  {{ $user->id_role == 1 ? 'checked' : '' }} />
+            <input disabled type="radio" name="role" id="koordinator" value="1"  {{ $user->id_role == 1 ? 'checked' : '' }} />
             <label for="Koordinator Produksi">Koordinator Produksi</label>
             <br />
-        <input type="radio" name="role" id="mekanik" value="2"  {{ $user->id_role == 2 ? 'checked' : '' }} />
+            <input disabled type="radio" name="role" id="mekanik" value="2"  {{ $user->id_role == 2 ? 'checked' : '' }} />
             <label for="Petugas Mekanik">Petugas Mekanik</label>
             <br />
-            <input type="radio" name="role" id="logistik" value="3" {{ $user->id_role == 3 ? 'checked' : '' }}/>
+            <input disabled type="radio" name="role" id="logistik" value="3" {{ $user->id_role == 3 ? 'checked' : '' }}/>
             <label for="Petugas Logistik">Petugas Mekanik</label>
             <br /> 
-            <input type="radio" name="role" id="kru" value="4"  {{ $user->id_role == 4 ? 'checked' : '' }}/>
+            <input disabled type="radio" name="role" id="kru" value="4"  {{ $user->id_role == 4 ? 'checked' : '' }}/>
             <label for="kru bus">Kru Bus</label>
             @include('layouts.alerts', ['field' => 'role'])
         </div>
@@ -65,10 +69,13 @@
             <small>Isi dengan - jika tidak ada</small>
             <input type="text" name="expertness" class="form-control {{ $errors->has('expertness') ? ' is-invalid' : '' }}" value ="{{$user->expertness}}" />
         </div>
+      
 
         <br />
-        <input class="btn btn-primary" type="submit" value="Simpan" />
+        <input class="btn btn-primary"  type="submit" value="Simpan" />
     </form>
 </div>
 
 @endsection
+
+

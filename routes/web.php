@@ -25,7 +25,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::post('/storeofficer','UserController@storeOfficer')->name('user.storeofficer');
         Route::get('/deleteofficer/{id}','UserController@destroyOfficer')->name('user.destroyofficer');
         Route::get('/editofficer/{id}','UserController@editOfficer')->name('user.editofficer');
-        Route::post('/updatedofficer/{id}','UserController@updateOfficer')->name('user.updateofficer');    
+        Route::post('/updatedofficer/{id}','UserController@updateOfficer')->name('user.updateofficer');
         Route::get('/detailofficer/{id}','UserController@showProfile')->name('user.detailofficer');    
     });
 
@@ -38,7 +38,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/editbus/{hullcode}','BusController@editbus')->name('bus.editbus');
     });
     
-    Route::group(['middleware'=>'coordinator','prefix' => 'sparepart'], function () {
+    Route::group(['middleware'=>'logistic','prefix' => 'sparepart'], function () {
         Route::get('/showsparepart','SparepartController@showSparepartList')->name('sparepart.showsparepartlist');
         Route::get('/addsparepart','SparepartController@showSparepartForm')->name('sparepart.addsparepart');
         Route::post('/storesparepart','SparepartController@storeSparepart')->name('sparepart.storesparepart');
@@ -75,7 +75,7 @@ Route::group(['middleware'=>'auth'],function(){
     });
     
     //belum ada middleware
-    Route::group(['prefix' => 'buscheck'], function () {
+    Route::group(['middleware'=>'crew','prefix' => 'buscheck'], function () {
         Route::get('/requestcheck','BusCheckingController@showCheckingForm')->name('buscheck.requestcheck');
         Route::post('/storecheck','BusCheckingController@storeBusChecking')->name('buscheck.storecheck');
     });
@@ -100,9 +100,19 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('/showform','BusPermitController@showPermitForm')->name('permits.request');
         Route::post('/storeform','BusPermitController@storePermit')->name('permits.store');
     });
+
+    Route::group(['prefix' => 'mutation'], function () {
+        Route::get('/addmutation','MutationController@addMutation')->name('mutation.add');
+        Route::post('/storemutation','MutationController@storeMutations')->name('mutation.store');
+        Route::get('/showall','MutationController@showMutation')->name('mutation.show');
+    });
+
     Route::get('/workshop/history','WorkshopController@showHistory')->name('workshop.historyworkshop')->middleware('mechanic');
-    
-    
+    Route::get('/sparepart','SparepartOrderController@acceptedOrder')->name('sparepart.accepted')->middleware('logistic');
+    Route::get('/profil/{id}','UserController@showProfile')->name('profile');
+    Route::get('/editprofile/{id}','UserController@editProfile')->name('editprofile');
+    Route::post('/updateprofile/{id}','UserController@updateProfile')->name('updateprofile');
+   
     // Route::get('/getofficerlist','UserController@officerList')->name('user.getofficerlist');
 });
 Route::get('/user','WorkshopController@getUserAjax')->name('workshop.getuser');

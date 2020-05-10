@@ -15,9 +15,7 @@ class CreateSparepartsTable extends Migration
     {
         Schema::create('spareparts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code');
             $table->string('name');
-            $table->string('brand');
             $table->integer('quantity');
             $table->string('unit_name');   
             $table->integer('price');    

@@ -17,12 +17,11 @@ class CreateMutatesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('sparepart_id')->unsigned();
-            $table->enum('type',['entry','out']);
-            $table->date('entry_date')->nullable();
-            $table->date('out_date')->nullable();
-            $table->integer('quantity');
-            $table->string('unit_name');   
+            $table->enum('status',['entry','out']);
+            $table->date('date');
+            $table->integer('quantity'); 
             $table->integer('price');
+            $table->enum('type',['new','second']);
             $table->foreign('user_id')->references('id')->on('users');    
             $table->foreign('sparepart_id')->references('id')->on('spareparts');    
             $table->timestamps();
