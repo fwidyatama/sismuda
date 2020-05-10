@@ -33,7 +33,7 @@
         @if ($permits->count()==0)
        
         <tbody>
-          <td colspan="4" style="text-align: center;padding-top: 3%">Belum ada kendaraan yang selesai diperbaiki</td>
+          <td colspan="7" style="text-align: center;padding-top: 3%">Belum ada kendaraan yang selesai diperbaiki</td>
               @else
               @foreach ($permits as $number => $permit)
               <tr>

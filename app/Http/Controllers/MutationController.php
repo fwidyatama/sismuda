@@ -82,7 +82,7 @@ class MutationController extends Controller
             ->when($month, function ($query) use ($year) {
                 return $query->whereYear('mutates.date', $year);
             })
-            ->orderByDesc('date')
+            ->orderByDesc('created_at')
             ->paginate(15);
         return view('officer.logistic.dashboardmutation', ['mutations' => $mutations, 'month' => $month]);
     }

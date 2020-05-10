@@ -19,7 +19,7 @@
           placeholder="Cari sukucadang" />
   </div>
   <div class="form-group mx-4 ">
-      <input type="submit" value="Filter" class="btn btn-primary">
+      <input type="submit" value="Cari" class="btn btn-primary">
   </div>
 
 </form>
