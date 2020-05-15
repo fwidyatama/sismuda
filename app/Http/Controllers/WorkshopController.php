@@ -25,113 +25,68 @@ class WorkshopController extends Controller
         }
     }
 
-    
+
     public function showWorkShopForm()
     {
         return view('coordinator.workshop.create');
     }
 
-    public function storeWorkshop($hullCode, $user_id, $note, $workType,$workshopNumber)
+    public function storeWorkshop(Request $request)
     {
-      
-        $workshop = new Workshop();
-        $workshop->hull_code = $hullCode;
-        $workshop->user_id = $user_id;
-        $workshop->order_date = Carbon::now();
-        $workshop->workshop_number = $workshopNumber;
-        $workshop->note = $note;
-        $workshop->work_type = $workType;
-        $workshop->save();
+        $hullCode = $request->hull_code;
+        if ($hullCode != null) {
+            $workshop = new Workshop();
+            $workshop->hull_code = $request->hull_code;
+            $workshop->user_id = $request->user_id;
+            $workshop->order_date = $request->order_date;
+            $workshop->workshop_number = $request->workshop_number;
+            $workshop->note = $request->note;
+            $workshop->work_type = $request->work_type;
+            $workshop->save();
 
-        $user = User::where('id','=',$user_id)->get();
-        Mail::to($user[0]->email)->send(new WorkshopEmail());
+            $user = User::where('id', '=', $request->user_id)->first();
+            Mail::to($user->email)->send(new WorkshopEmail());
+            return response()->json(['True'], 200);
+        } else {
+            return response()->json(['False'], 500);
+        }
     }
 
     public function storeWorkshops(Request $request)
     {
         $validator = Validator::make($request->all(), [
-        'work_type' => 'required',
-        'note' => 'required',
+            'work_type' => 'required',
+            'note' => 'required',
         ]);
 
         if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)
-                    ->withInput();
-        }
-        else{
-            $userIds = $request->user;
-            foreach ($userIds as $key => $value) {
-                $hullCode = $request->hull_code;
-                $note = $request->note;
-                $workType = $request->work_type;
-                $workshopNumber = $request->workshop_number;
-                $this->storeWorkshop($hullCode, $userIds[$key], $note, $workType,$workshopNumber);
+            return redirect()->back()->withErrors($validator)
+                ->withInput();
+        } else {
+            $hullCode = $request->hull_code;
+            $workshopNumber = $request->workshop_number;
+            $note = $request->note;
+            $workType = $request->work_type;
+            $userId = $request->user;
+            $date = Carbon::now();
+            $request = new Request();
+
+            foreach ($userId as $key => $value) {
+                $data = [
+                    'user_id' => $userId[$key],
+                    'hull_code' => $hullCode,
+                    'order_date' => $date,
+                    'workshop_number' => $workshopNumber,
+                    'note' => $note,
+                    'work_type' => $workType,
+                ];
+                $request->merge($data);
+                $this->storeWorkshop($request);
             }
         }
 
         return redirect()->route('workshop.showworkshop')->with('status', 'Berhasil membuat Surat tugas');
     }
-
-
-    //make attach bisa buat edit. Buat edit nanti make sync bukan attach.
-    // $bus = Bus::findOrFail($hullCode);
-    // $data = [];
-    // foreach ($userIds as $userId) {
-    //     $data[$userId] = [
-    //         'order_date' => Carbon::now(),
-    //         'note' => $request->note,
-    //         'work_type' => $request->work_type
-    //     ];
-    // }
-    // $bus->user()->attach($data);       
-
-    //make mass assignment
-
-
-
-    // $validator = Validator::make($request->all(), [
-    //     'work_type' => 'required',
-    //     'note' => 'required',
-    // ]);
-
-    // if ($validator->fails()) {
-    //     return redirect()->back()->withErrors($validator)
-    //         ->withInput();
-    // } else {
-    //     $rowCount=count(Workshop::all());
-
-    //     $userIds = $request->user;
-    //     foreach ($userIds as $userId) {
-    //         $data =  [
-    //             'workshop_number' =>$rowCount,
-    //             'hull_code' => $request->hull_code,
-    //             'user_id' => $userId,
-    //             'order_date' => Carbon::now(),
-    //             'note' => $request->note,
-    //             'work_type' => $request->work_type
-    //         ];
-
-    //         \App\Models\Workshop::create($data);
-    //     }
-
-    //     $idOfficer =User::findMany($request->user);
-
-    //     $email = [];
-
-    //     foreach ($idOfficer as $user){
-
-    //     $email []= $user->email;
-
-
-    //     Mail::to($user->email)->send(new WorkshopEmail($email));
-    //     }
-
-    //     return redirect()->route('workshop.showworkshop')->with('status', 'Berhasil membuat Surat tugas');
-
-
-    // }
-    // }
-
     public function showWorkshopList(Request $request)
     {
 
@@ -233,5 +188,28 @@ class WorkshopController extends Controller
         }
 
         return view('officer.mechanic.workshop', ['workshops' => $data]);
+    }
+
+
+    public function storeWorkshopUnit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'work_type' => 'required',
+            'note' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)
+                ->withInput();
+        } else {
+            $workshop = new Workshop();
+            $workshop->hull_code = $request->hull_code;
+            $workshop->user_id = $request->user_id;
+            $workshop->order_date = Carbon::now();
+            $workshop->workshop_number = $request->workshop_number;
+            $workshop->note = $request->note;
+            $workshop->work_type = $request->work_type;
+            $workshop->save();
+        }
     }
 }

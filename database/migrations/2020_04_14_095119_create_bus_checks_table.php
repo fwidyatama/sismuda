@@ -20,8 +20,6 @@ class CreateBusChecksTable extends Migration
             $table->longText('complaint');
             $table->date('date');
             $table->integer('status')->default(0);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('hull_code')->references('hull_code')->on('buses');
             $table->timestamps();
         });
     }

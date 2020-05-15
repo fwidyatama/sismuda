@@ -33,7 +33,7 @@
         @if ($checkOrders->count()==0)
        
         <tbody>
-          <td colspan="6" style="text-align: center;padding-top: 3%">Belum ada permintaan pengecekan</td>
+          <td colspan="7" style="text-align: center;padding-top: 3%">Belum ada permintaan pengecekan</td>
               @else
               @foreach ($checkOrders as $number => $checkOrder)
               <tr>

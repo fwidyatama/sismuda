@@ -23,15 +23,12 @@ class BusPermitController extends Controller
 
     public function showList(){
         $permits = BusPermit::with('user')->orderBy('date','DESC')->paginate(15);
-        // dd($permits[0]->user->name);
-
         return view('coordinator.permits.dashboard',['permits'=>$permits]);
     }
 
     public function deleteList($id){
         $permit = BusPermit::findOrFail($id);
         $permit->delete();
-
         return redirect()->back()->with('status','Berhasil menghapus daftar');
     }
 
@@ -41,7 +38,6 @@ class BusPermitController extends Controller
         ->where(['workshops.user_id'=>Auth::user()->id, 'workshops.status'=>0])
         ->get();
         return view('officer.mechanic.buspermit',['workshopsNumber'=>$workshopsNumber]);
-
     }
 
     public function storePermit(Request $request){
@@ -57,8 +53,6 @@ class BusPermitController extends Controller
                 ->withInput();
         }
         else{
-            
-
         $workshopNumber = $request->workshopnumber;
         $permit = new BusPermit();
         $permit->hull_code = $request->hull_code;
@@ -67,26 +61,12 @@ class BusPermitController extends Controller
         $permit->note = $request->note;
         $permit->date = Carbon::now();
         $permit->save();
-
         Workshop::where('workshop_number','like',$workshopNumber)->update(['status' => 1]);
-       
-
-        
-
         return redirect()->back()->with('status','Berhasil menambah data kendaraan yang sudah selesai diperbaiki');
         
     }
 
     }
-
-    // public function getWorkshopNumber(){
-    //     $workshopsNumber = DB::table('workshops')
-    //     ->select('workshops.workshop_number')
-    //     ->where(['workshops.user_id'=>Auth::user()->id, 'workshops.status'=>0])
-    //     ->get();
-
-    //     return $workshopsNumber;
-    // }
 
    
 }

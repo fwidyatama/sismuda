@@ -116,3 +116,7 @@ Route::group(['middleware'=>'auth'],function(){
 Route::get('/user','WorkshopController@getUserAjax')->name('workshop.getuser');
 Route::get('/bus','WorkshopController@getBusAjax')->name('workshop.getbus');
 Route::get('/getsparepart','SparepartOrderController@getSparepart');
+
+Route::post('/storespareparttest','SparepartOrderController@order')->name('sparepart.post');
+Route::post('/storeworkshoptest','WorkshopController@storeWorkshop')->name('workshop.post');
+Route::post('/storebuscheck','BusCheckingController@storeOrder')->name('buscheck.post');

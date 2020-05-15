@@ -89,52 +89,112 @@ class SparepartOrderController extends Controller
     }
 
 
-    public function order($hullCode, $sparepartId, $type, $quantity, $unitName)
-    {
-        $order = new SparepartOrder();
-        $order->user_id = Auth::user()->id;
-        $order->hull_code = $hullCode;
-        $order->sparepart_id = $sparepartId;
-        $order->type = $type;
-        $order->date = Carbon::now();
-        $order->quantity = $quantity;
-        $order->unit_name = $unitName;
-        $order->save();
-    }
 
+    public function order(Request $request)
+    {
+        $hullCode = $request->hull_code;
+        if ($hullCode != null) {
+            $order = new SparepartOrder();
+            $order->user_id = $request->user_id;
+            $order->hull_code = $request->hull_code;
+            $order->sparepart_id = $request->sparepart_id;
+            $order->type = $request->type;
+            $order->date = $request->date;
+            $order->quantity = $request->quantity;
+            $order->unit_name = $request->unit_name;
+            $order->save();
+            return response()->json(['True'],200);
+        } else {
+            return response()->json(['False'],500);
+        }
+    }
 
     public function storeOrder(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'hull_code' => 'required',
             'type' => 'required',
             'quantity' => 'required',
             'unit_name' => 'required',
-            'type' =>'required'
+            'type' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)
                 ->withInput();
         } else {
-
-            
+            $hullCode = $request->hull_code;
             $spareparts = $request->sparepart;
+            $type = $request->type;
+            $quantity = $request->quantity;
+            $unitName =  $request->unit_name;
+            $request = new Request();
+
             foreach ($spareparts as $key => $sparepart) {
-                $hullCode = $request->hull_code;
-                $sparepartId = $request->sparepart;
-                $type = $request->type;
-                $quantity = $request->quantity;
-                $unitName = $request->unit_name;
-                // dd($hullCode,$sparepartId[$key],$type, $quantity[$key], $unitName[$key]);
-                $this->order($hullCode, $sparepartId[$key], $type, $quantity[$key], $unitName[$key]);
-                
+                $data = [
+                    'user_id' => Auth::user()->id,
+                    'hull_code' => $hullCode,
+                    'sparepart_id' => $spareparts[$key],
+                    'type' => $type,
+                    'date' => Carbon::now(),
+                    'quantity' => $quantity[$key],
+                    'unit_name' => $unitName[$key],
+                ];
+                $request->merge($data);
+                $this->order($request);
             }
             $coordinatorEmail = User::where('id_role', '=', '1')->get();
             Mail::to($coordinatorEmail[0]->email)->send(new SparepartOrderMail());
             return redirect()->back()->with('status', 'Berhasil menambah data sparepart');
         }
     }
+
+
+
+
+    // public function storeOrder(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'hull_code' => 'required',
+    //         'type' => 'required',
+    //         'quantity' => 'required',
+    //         'unit_name' => 'required',
+    //         'type' =>'required'
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->withErrors($validator)
+    //             ->withInput();
+    //     } else {
+    //         $spareparts = $request->sparepart;
+    //         foreach ($spareparts as $key => $sparepart) {
+    //             $data = [
+    //             'user_id' => Auth::user()->id,
+    //             'hull_code' => $request->hull_code,
+    //             'sparepart_id' =>$spareparts[$key],
+    //             'type' => $request->type,
+    //             'date' => Carbon::now(),
+    //             'quantity' => $request->quantity[$key],
+    //             'unit_name' => $request->unit_name[$key],
+    //         ];
+    //         // dd($data);
+    //         // $dataOrder=$request->merge($data);
+    //         $request = new Request($data);
+    //         // $this->order($request);
+    //             // $requestData = new Request($data);
+    //             // dd($requestData->user_id);
+    //             // $hullCode = $request->hull_code;
+    //             // $sparepartId = $request->sparepart;
+    //             // $type = $request->type;
+    //             // $quantity = $request->quantity;
+    //             // $unitName = $request->unit_name;
+    //             // dd($dataOrder);
+
+    //         }
+    //         dd($request);
+    //         $coordinatorEmail = User::where('id_role', '=', '1')->get();
+    //         Mail::to($coordinatorEmail[0]->email)->send(new SparepartOrderMail());
+    //         return redirect()->back()->with('status', 'Berhasil menambah data sparepart');
+    //     }
+    // }
 
     public function getSparepart(Request $request)
     {
@@ -143,20 +203,23 @@ class SparepartOrderController extends Controller
         return $sparepart;
     }
 
-    public function downloadList(){
+    public function downloadList()
+    {
         return Excel::download(new OrderList, 'Sparepart Order.xlsx');
     }
 
-    public function acceptedOrder(){
+    public function acceptedOrder()
+    {
         $spareparts = DB::table('orders')
-        ->join('users', 'users.id', '=', 'orders.user_id')
-        ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
-        ->select('orders.*', 'users.name as user_name', 'spareparts.name as sparepart_name')
-        ->where('orders.status','=','1')
-        ->orderByDesc('date')
-        ->paginate(10);
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
+            ->select('orders.*', 'users.name as user_name', 'spareparts.name as sparepart_name')
+            ->where('orders.status', '=', '1')
+            ->orderByDesc('date')
+            ->paginate(10);
 
-    // dd($spareparts);
+        // dd($spareparts);
         return view('officer.logistic.sparepart', ['spareparts' => $spareparts]);
     }
+
 }

@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
-use Tzsk\Sms\Facade\Sms;
-
-
 
 class UserController extends Controller
 {
@@ -114,14 +111,11 @@ class UserController extends Controller
             $user->phone_number = $request->phone;
             $user->expertness = $request->expertness;
             $user->address = $request->address;
-            // $user->password = \Hash::make($request->password);
-
             $user->save();
             return redirect()->route('user.showofficerlist')->with('status', 'Berhasil mengubah data karyawan');
         }
     }
 
-   
     public function showProfile($id){
         $user = User::findOrFail($id);
         return view('profile', ['user' => $user]);
@@ -158,8 +152,4 @@ class UserController extends Controller
             return redirect()->back()->with('status', 'Berhasil mengubah profil');
         }
     }
-
-
-    
-  
 }

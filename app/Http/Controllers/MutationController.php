@@ -113,6 +113,7 @@ class MutationController extends Controller
             Sparepart::where('id', $sparepartId)->update([
                     'quantity' => $quantity + $sparepartCounter
                 ]);
+                
         } else if ($status == 'out') {
             $sparepartCounter = $this->sparepart($sparepartId)->quantity;
             // dd($sparepartCounter);

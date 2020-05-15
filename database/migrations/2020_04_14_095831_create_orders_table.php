@@ -23,10 +23,6 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity');
             $table->string('unit_name');   
             $table->enum('status',['0','1','2'])->default(0);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('hull_code')->references('hull_code')->on('buses');
-            $table->foreign('sparepart_id')->references('id')->on('spareparts');
-
             $table->timestamps();
         });
     }

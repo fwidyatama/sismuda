@@ -23,7 +23,7 @@
         
         <div class="form-group">
             <label>Kode Lambung</label><br>
-           <select name="hull_code"  id="hull_code" class="form-control"></select>
+           <select name="hull_code" style="width: 100%" id="hull_code" class="form-control"></select>
        </div>
      
 

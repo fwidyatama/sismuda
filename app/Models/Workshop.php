@@ -8,7 +8,9 @@ class Workshop extends Model
 {
     
     // protected $fillable = ['user_id','hull_code','order_date','work_type','note'];
-    protected $fillable = ['user_id','workshop_number','hull_code','order_date','work_type','note'];
+    protected $fillable = ['hull_code','user_id','order_date','workshop_number','note','work_type','status'];
+    protected $table = 'workshops';
+    
     public function user(){
         return $this->belongsToMany('App\Models\User');
     }
