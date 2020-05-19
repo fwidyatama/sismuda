@@ -10,4 +10,6 @@ class Mutation extends Model
 
     protected $fillable = ['user_id','sparepart_id','status','date','quantity','unit_name','price','type'];
 
+   
+    
 }

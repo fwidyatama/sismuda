@@ -10,6 +10,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Mail;
+use Illuminate\Support\Facades\DB;
 
 class BusCheckingController extends Controller
 {
@@ -40,6 +41,8 @@ class BusCheckingController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'complaint' => 'required',
+        ],[
+            'complaint.required'=> 'Field harus diisi'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)
@@ -76,7 +79,7 @@ class BusCheckingController extends Controller
     {
         $checkOrder = BusCheck::findOrFail($id);
         $checkOrder->delete();
-        return redirect()->back()->with('status', 'Berhasil menghapus permintaan pengecekan');
+        return redirect()->back()->with('status', 'Berhasil menghapus riwayat pengecekan');
     }
 
     public function detailOrder($id)
@@ -85,18 +88,42 @@ class BusCheckingController extends Controller
         return view('coordinator.buscheck.detail', ['checkOrder' => $checkOrder]);
     }
 
-    public function verifyOrder(Request $request, $id)
+    public function verifyOrder(Request $request)
     {
-
-        $checkOrder = BusCheck::findOrFail($id);
+        $busCheck = new BusCheck();
+        $checkOrder = $busCheck->getBusDetail($request->id);
         if ($request->action == 'approve') {
-            $checkOrder->status = 2;
-            $checkOrder->save();
+            $checkOrder['status'] = 2;
+            $busCheck->status = $checkOrder['status'];
+            DB::table('bus_checks')
+            ->where('id',$checkOrder['id'])
+            ->update(['status'=>$checkOrder['status']]);
+            // return response()->json(['True']);
             return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
-        } else if ($request->action == 'reject') {
-            $checkOrder->status = 1;
-            $checkOrder->save();
+        } 
+        else if ($request->action == 'reject') {
+            $checkOrder['status'] = 1;
+            $busCheck->status = $checkOrder['status'];
+            DB::table('bus_checks')
+            ->where('id',$checkOrder['id'])
+            ->update(['status'=>$checkOrder['status']]);
+            // return response()->json(['False']);
             return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
         }
     }
+
+    // public function verifyOrder(Request $request, $id)
+    // {
+    //     $checkOrder = BusCheck::findOrFail($id);
+
+    //     if ($request->action == 'approve') {
+    //         $checkOrder->status = 2;
+    //         $checkOrder->save();
+    //         return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
+    //     } else if ($request->action == 'reject') {
+    //         $checkOrder->status = 1;
+    //         $checkOrder->save();
+    //         return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
+    //     }
+    // }
 }

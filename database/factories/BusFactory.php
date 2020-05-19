@@ -9,6 +9,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Bus::class, function (Faker $faker) {
     return [
+        'hull_code' => $faker->numberBetween(0,100),
         'name' => $faker->name,
         'brand' => $faker->name,
         'type' => 'regular',

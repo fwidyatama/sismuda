@@ -44,7 +44,7 @@
                 <td>{{$permit->note}}</td>
                 <td>{{$permit->date}}</td>
             <td>
-              <a href="#" data-id="{{$permit->id}}" class="btn btn-danger btn-sm delete-permit">Delete</a>
+              <a href="#" data-id="{{$permit->id}}" class="btn btn-danger btn-sm delete-permit">Hapus</a>
             </td>
           </tr>
           @endforeach

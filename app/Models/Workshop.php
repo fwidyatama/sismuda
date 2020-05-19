@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Workshop extends Model
 {
@@ -17,6 +18,13 @@ class Workshop extends Model
 
     public function bus(){
         return $this->belongsToMany('App\Models\Bus');
+    }
+
+    
+    public function changeStatus($workshopNumber){
+        DB::table('workshops')
+        ->where('workshop_number','like',$workshopNumber)
+        ->update(['status' => 1]);
     }
 
 }

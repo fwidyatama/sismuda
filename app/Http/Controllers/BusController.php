@@ -41,6 +41,12 @@ class BusController extends Controller
             'police_number' => 'required|max:10',
             'hull_code' => 'required|numeric|min:2',
             'license_date' => 'required'
+        ],[
+            'brand.required'=>'Field harus diisi',
+            'type.required'=>'Field harus diisi',
+            'police_number.required'=>'Field harus diisi',
+            'hull_code.required'=>'Field harus diisi',
+            'license_date.required'=>'Field harus diisi'
         ]);
        
 
@@ -80,6 +86,12 @@ class BusController extends Controller
             'police_number' => 'required|max:10',
             'hull_code' => 'required|numeric|min:2',
             'license_date' => 'required'
+        ],[
+            'brand.required'=>'Field harus diisi',
+            'type.required'=>'Field harus diisi',
+            'police_number.required'=>'Field harus diisi',
+            'hull_code.required'=>'Field harus diisi',
+            'license_date.required'=>'Field harus diisi'
         ]);
        
 

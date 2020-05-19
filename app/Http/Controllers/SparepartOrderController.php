@@ -112,11 +112,9 @@ class SparepartOrderController extends Controller
     public function storeOrder(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'hull_code' => 'required',
-            'type' => 'required',
-            'quantity' => 'required',
-            'unit_name' => 'required',
             'type' => 'required'
+        ],[
+            'type.required' => 'field harus diisi',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)
@@ -203,9 +201,64 @@ class SparepartOrderController extends Controller
         return $sparepart;
     }
 
-    public function downloadList()
+    public function downloadList(Request $request)
     {
-        return Excel::download(new OrderList, 'Sparepart Order.xlsx');
+        $month = $request->month;
+        $year = $request->year;
+        $monthTitle = '';
+
+        switch ($month) {
+            case "01":
+                $monthTitle = 'Januari';
+                break;
+            case "02":
+                $monthTitle = 'Februari';
+                break;
+            case "03":
+                $monthTitle = 'Maret';
+                break;
+            case "04":
+                $monthTitle = 'April';
+                break;
+            case "05":
+                $monthTitle = 'Mei';
+                break;
+            case "06":
+                $monthTitle = 'Juni';
+                break;
+            case "07":
+                $monthTitle = 'Juli';
+                break;
+            case "08":
+                $monthTitle = 'Agustus';
+                break;
+            case "09":
+                $monthTitle = 'September';
+                break;
+            case "10":
+                $monthTitle = 'Oktober';
+                break;
+            case "11":
+                $monthTitle = 'November';
+                break;
+            case "12":
+                $monthTitle = 'Desember';
+                break;
+            default:
+                break;
+        }
+        if ($request->action == 'download') {
+        return Excel::download(new OrderList($month, $year), "Order_{$monthTitle}_${year}.xlsx");}
+
+        $spareparts=DB::table('orders')
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->join('spareparts', 'spareparts.id', '=', 'orders.sparepart_id')
+            ->select('orders.*', 'users.name as user_name', 'spareparts.name as sparepart_name')
+            ->whereMonth('orders.date',$month)
+            ->whereYear('orders.date',$year)
+            ->orderByDesc('date')
+            ->get();
+            return view('coordinator.sparepart.orderlist', ['spareparts' => $spareparts]);
     }
 
     public function acceptedOrder()
@@ -217,8 +270,6 @@ class SparepartOrderController extends Controller
             ->where('orders.status', '=', '1')
             ->orderByDesc('date')
             ->paginate(10);
-
-        // dd($spareparts);
         return view('officer.logistic.sparepart', ['spareparts' => $spareparts]);
     }
 

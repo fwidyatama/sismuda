@@ -1,12 +1,16 @@
 <?php
 
 namespace Tests\Unit;
+
+use App\Models\User;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Carbon\Carbon;
 
 class Example2Test extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic unit test example.
      *
@@ -16,21 +20,12 @@ class Example2Test extends TestCase
   
     public function test_create() {
 
-        // $this->withoutExceptionHandling();
-        $this->withoutMiddleware();
+        $user = factory(User::class)->make([
+            'id' => 2,
+        ]);
 
-         $data = [
-            'hull_code' => 112,
-            'user_id' => 2,
-            'order_date' => Carbon::now(),
-            'workshop_number'=>4,
-            'note' => 'Ada kerusakan radio di bus',
-            'work_type' => 'Kelistrikan'
-        ];
-    
-       $response = $this->post('workshop/storeworkshop',$data);
-        $response->assertJson(['Berhasil']);
-    
+        dd($user);
+        
         
     }
   

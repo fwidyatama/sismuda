@@ -47,6 +47,14 @@ class UserController extends Controller
             'phone' => 'required|numeric',
             'address' => 'required|min:10',
             'password' => 'required|min:5'
+        ],[
+            'name.required'=>'Field harus diisi',
+            'username.required'=>'Field harus diisi',
+            'email.required'=>'Field harus diisi',
+            'role.required'=>'Field harus diisi',
+            'phone.required'=>'Field harus diisi',
+            'address.required'=>'Field harus diisi',
+            'password.required'=>'Field harus diisi'
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +104,13 @@ class UserController extends Controller
             'role' => 'required',
             'phone' => 'required|numeric',
             'address' => 'required|min:10',
-            // 'password' => 'required|min:5'
+        ],[
+            'name.required'=>'Field harus diisi',
+            'username.required'=>'Field harus diisi',
+            'email.required'=>'Field harus diisi',
+            'role.required'=>'Field harus diisi',
+            'phone.required'=>'Field harus diisi',
+            'address.required'=>'Field harus diisi',
         ]);
 
         if ($validator->fails()) {
@@ -134,6 +148,12 @@ class UserController extends Controller
             'email' => 'required|min:3',
             'phone' => 'required|numeric',
             'address' => 'required|min:10',
+        ],[
+            'name.required'=>'Field harus diisi',
+            'username.required'=>'Field harus diisi',
+            'email.required'=>'Field harus diisi',
+            'phone.required'=>'Field harus diisi',
+            'address.required'=>'Field harus diisi',
         ]);
 
         if ($validator->fails()) {

@@ -20,8 +20,6 @@ class CreateBusPermitsTable extends Migration
             $table->integer('workshop_number');
             $table->string('note');
             $table->date('date');
-            $table->foreign('hull_code')->references('hull_code')->on('buses');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+// use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 
@@ -18,7 +18,7 @@ class SparepartOrderTest extends TestCase
     //     parent::setUp();
     //      $conn->getConnection()->query("set foreign_key_checks=1");
     //  }
-    use DatabaseMigrations;
+    use RefreshDatabase;
     // protected $workshops;
     /**
      * A basic feature test example.
@@ -33,7 +33,7 @@ class SparepartOrderTest extends TestCase
         'hull_code' => 111,
         'sparepart_id'=>1,
         'date' => Carbon::now(),
-        'quantity' => '9999999',
+        'quantity' => '10',
         'type' => 'second',
         'unit_name' => 'pcs'
     ];
@@ -49,7 +49,7 @@ public function test_order_failed()
     'hull_code' => null,
     'sparepart_id'=>1,
     'date' => Carbon::now(),
-    'quantity' => '9999999',
+    'quantity' => '10',
     'type' => 'second',
     'unit_name' => 'pcs'
 ];

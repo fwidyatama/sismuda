@@ -120,3 +120,4 @@ Route::get('/getsparepart','SparepartOrderController@getSparepart');
 Route::post('/storespareparttest','SparepartOrderController@order')->name('sparepart.post');
 Route::post('/storeworkshoptest','WorkshopController@storeWorkshop')->name('workshop.post');
 Route::post('/storebuscheck','BusCheckingController@storeOrder')->name('buscheck.post');
+Route::post('/storepermit','BusPermitController@storePermit')->name('buscheck.verify');

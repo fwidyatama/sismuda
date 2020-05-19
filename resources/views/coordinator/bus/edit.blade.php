@@ -51,7 +51,7 @@
           </div>
 
         <br />
-        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn btn-primary" type="submit" value="Simpan" />
     </form>
 </div>
 

@@ -13,10 +13,40 @@
   <h1 class="h3 mb-0 text-gray-800">Dashboard Pengajuan Sparepart</h1>
 </div>
 
+<form action="{{route('order.download')}}" class="form-row my-2 ">   
+  <div class="form-group mx-1">
+    <select name="month" class="form-control" id="date" >Bulan
+        <option value="" >Bulan</option>
+        <option value="01" {{Request::get('month')=="01"?'selected':''}}>Januari</option>
+        <option value="02"{{Request::get('month')=="02"?'selected':''}}>Februari</option>
+        <option value="03"{{Request::get('month')=="03"?'selected':''}}>Maret</option>
+        <option value="04"{{Request::get('month')=="04"?'selected':''}}>April</option>
+        <option value="05"{{Request::get('month')=="05"?'selected':''}}>Mei</option>
+        <option value="06"{{Request::get('month')=="06"?'selected':''}}>Juni</option>
+        <option value="07"{{Request::get('month')=="07"?'selected':''}}>Juli</option>
+        <option value="08"{{Request::get('month')=="08"?'selected':''}}>Agustus</option>
+        <option value="09"{{Request::get('month')=="09"?'selected':''}}>September</option>
+        <option value="10"{{Request::get('month')=="10"?'selected':''}}>Oktober</option>
+        <option value="11"{{Request::get('month')=="11"?'selected':''}}>November</option>
+        <option value="12"{{Request::get('month')=="10"?'selected':''}}>Desmber</option>
+      </select>
+  </div>
 
-<div class="d-sm-flex float-right  ">
+  <div class="form-group mx-1 ">
+  <input value="{{Request::get('year')}}" name="year" class="form-control" type="text"
+          placeholder="Tahun" />
+  </div>
+
+      <div class="form-group mx-1">
+        <button class="btn btn-primary" name="action" value="filter">Filter</button>
+        <button class="btn btn-success" name="action" value="download">Unduh Laporan</button> 
+      
+    </div>
+</form>
+
+{{-- <div class="d-sm-flex float-right  ">
   <a href="{{route('order.download')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Data</a>
-</div>
+</div> --}}
 
 
 <div style="margin-top:8%" class="card shadow">
@@ -80,7 +110,6 @@
         </tbody>
         
       </table>
-      {{$spareparts->links()}}
     </div>
   </div>
 </div>

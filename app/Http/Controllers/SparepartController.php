@@ -64,6 +64,11 @@ class SparepartController extends Controller
             'quantity' => 'required|numeric',
             'unit_name' => 'required|max:10',
             'price' => 'required|numeric',
+        ],[
+            'name.required'=> 'Field harus diisi',
+            'quantity.required'=> 'Field harus diisi',
+            'unit_name.required'=> 'Field harus diisi',
+            'price.required'=> 'Field harus diisi'
         ]);
        
 
@@ -109,6 +114,11 @@ class SparepartController extends Controller
             'quantity' => 'required|numeric',
             'unit_name' => 'required|max:10',
             'price' => 'required|numeric',
+        ],[
+            'name.required'=> 'Field harus diisi',
+            'quantity.required'=> 'Field harus diisi',
+            'unit_name.required'=> 'Field harus diisi',
+            'price.required'=> 'Field harus diisi'
         ]);
        
 

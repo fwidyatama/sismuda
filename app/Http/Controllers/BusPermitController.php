@@ -41,32 +41,39 @@ class BusPermitController extends Controller
     }
 
     public function storePermit(Request $request){
-
         $validator = Validator::make($request->all(),[
             'hull_code'=>'required',
             'workshopnumber'=>'required',
             'note'=>'required'
+        ],[
+            'workshopnumber.required'=>'Field harus diisi',
+            'note.required'=>'Field harus diisi',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
+            return redirect()->route('permits.request')->withErrors($validator)
                 ->withInput();
         }
         else{
         $workshopNumber = $request->workshopnumber;
         $permit = new BusPermit();
+        $workshop = new Workshop();
         $permit->hull_code = $request->hull_code;
         $permit->user_id = Auth::user()->id;
         $permit->workshop_number =$workshopNumber;
         $permit->note = $request->note;
         $permit->date = Carbon::now();
+        $workshop->changeStatus($request->workshopnumber);
         $permit->save();
-        Workshop::where('workshop_number','like',$workshopNumber)->update(['status' => 1]);
-        return redirect()->back()->with('status','Berhasil menambah data kendaraan yang sudah selesai diperbaiki');
+        
+        // Workshop::where('workshop_number','like',$workshopNumber)->update(['status' => 1]);
+       
+        // return redirect()->back()->with('status','Berhasil menambah data kendaraan yang sudah selesai diperbaiki');
+        return redirect()->route('permits.request')->with('status','Berhasil menambah data kendaraan yang sudah selesai diperbaiki');
         
     }
-
-    }
+}
+}
 
    
-}
+

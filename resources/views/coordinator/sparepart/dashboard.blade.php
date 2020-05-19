@@ -25,6 +25,10 @@
 </form>
 
 
+
+
+
+
 <div class="d-sm-flex float-right  ">
   <a href="{{route('sparepart.downloadreport')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Laporan Stok</a>
   <a href="{{route('sparepart.addsparepart')}}" style="padding-bottom: 2%" class="btn btn-primary">Tambah Sparepart</a>

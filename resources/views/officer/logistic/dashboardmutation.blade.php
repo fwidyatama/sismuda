@@ -24,6 +24,7 @@
 <form action="{{route('mutation.show')}}" class="form-row my-2 ">   
   <div class="form-group mx-1">
     <select name="month" class="form-control" id="date" >Bulan
+      <option value="" >Bulan</option>
         <option value="01" {{Request::get('month')=="01"?'selected':''}}>Januari</option>
         <option value="02"{{Request::get('month')=="02"?'selected':''}}>Februari</option>
         <option value="03"{{Request::get('month')=="03"?'selected':''}}>Maret</option>

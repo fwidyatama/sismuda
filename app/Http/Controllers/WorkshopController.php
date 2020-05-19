@@ -57,6 +57,9 @@ class WorkshopController extends Controller
         $validator = Validator::make($request->all(), [
             'work_type' => 'required',
             'note' => 'required',
+        ],[
+            'work_type.required'=>'Field harus diisi',
+            'note.required'=>'Field harus diisi'
         ]);
 
         if ($validator->fails()) {

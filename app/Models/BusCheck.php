@@ -11,4 +11,10 @@ class BusCheck extends Model
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+
+    public function getBusDetail($checkId){
+        // dd(self::find($checkId)->toArray());
+        $detailBus = self::find($checkId)->toArray();
+        return $detailBus;
+    }
 }
