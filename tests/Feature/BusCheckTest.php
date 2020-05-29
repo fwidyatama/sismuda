@@ -29,9 +29,9 @@ class BusCheckTest extends TestCase
             'complaint' => 'Ada kerusakan di bus tolong di cek',
             'date' => Carbon::now()
         ];
-        $controller = new BusCheckingController();
-        $response = $controller->storeBusCheckingUnit($data['user_id'],$data['hull_code'],$data['complaint'],$data['date']);
-        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $response = $this->post('/storebuscheck',$data);
+        $response->assertStatus(200);
+        $response->assertJson(['Berhasil membuat pengecekan bus']);
     }
     public function test_bus_check_failed()
     {
@@ -41,9 +41,9 @@ class BusCheckTest extends TestCase
             'complaint' => 'Ada kerusakan di bus tolong di cek',
             'date' => Carbon::now()
         ];
-        $controller = new BusCheckingController();
-        $response = $controller->storeBusCheckingUnit($data['user_id'],$data['hull_code'],$data['complaint'],$data['date']);
-        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $response = $this->post('/storebuscheck',$data);
+        $response->assertStatus(500);
+        $response->assertJson(['Gagal membuat pengecekan bus']);
        
     }
 }

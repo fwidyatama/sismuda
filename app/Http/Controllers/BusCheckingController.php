@@ -111,19 +111,18 @@ class BusCheckingController extends Controller
         }
     }
 
-    public function storeBusCheckingUnit($userId,$hullCode,$complaint,$date)
+    public function storeBusCheckingUnit(Request $request)
     {
-        
-        if ($hullCode==null) {
-            return redirect()->back()->withErrors('Kode lambung harus diisi');
+        if ($request->hull_code==null) {
+            return response()->json(['Gagal membuat pengecekan bus'],500);
         } else {
             $busCheck = [
-                'user_id' => $userId,
-                'hull_code' => $hullCode,
-                'complaint' => $complaint,
-                'date' => $date
+                'hull_code' => $request->hull_code,
+                'user_id' => $request->user_id,
+                'complaint' => $request->complaint,
+                'date' => $request->date
             ];
-            return redirect()->back()->with('status', 'Berhasil melakukan permintaan pengecekan');
+            return response()->json(['Berhasil membuat pengecekan bus'],200);
         }
     }
 }

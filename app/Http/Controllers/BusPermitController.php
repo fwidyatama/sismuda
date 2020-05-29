@@ -72,7 +72,7 @@ class BusPermitController extends Controller
         }
     }
 
-    public function unitStorePermit(Request $request)
+    public function storePermitUnit(Request $request)
     {
         if ($request->hull_code==null) {
             return response()->json(['Gagal menambah data'],500);
