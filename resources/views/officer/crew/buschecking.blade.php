@@ -13,7 +13,11 @@
 </div>
 <div class="my-3">
 
-    
+    @if(session('error'))
+    <div class="alert alert-danger">
+      {{session('error')}}
+    </div>
+    @endif
     <form action="{{ route('buscheck.storecheck') }}" id="field" class="bg-white shadow-sm p-3" method="POST"
         enctype="multipart/form-data">
         @csrf
@@ -29,7 +33,7 @@
         @include('layouts.alerts', ['field' => 'complaint'])
     </div>
 
-        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn btn-primary" type="submit" value="Simpan" />
     </form>
 </div>
 

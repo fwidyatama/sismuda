@@ -73,8 +73,7 @@ class SparepartController extends Controller
        
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-            ->withInput();
+            return redirect()->back()->with('error','Semua field harus diisi');
         } 
         else{
             $bus = new Sparepart();
@@ -123,8 +122,7 @@ class SparepartController extends Controller
        
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-            ->withInput();
+            return redirect()->back()->with('error','Semua field harus diisi');
         } 
         else{
             $bus = Sparepart::findOrFail($id);

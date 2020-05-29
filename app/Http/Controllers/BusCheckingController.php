@@ -45,8 +45,7 @@ class BusCheckingController extends Controller
             'complaint.required'=> 'Field harus diisi'
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
             $user_id = Auth::user()->id;
             $hullCode = $request->hull_code;
@@ -112,18 +111,19 @@ class BusCheckingController extends Controller
         }
     }
 
-    // public function verifyOrder(Request $request, $id)
-    // {
-    //     $checkOrder = BusCheck::findOrFail($id);
-
-    //     if ($request->action == 'approve') {
-    //         $checkOrder->status = 2;
-    //         $checkOrder->save();
-    //         return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
-    //     } else if ($request->action == 'reject') {
-    //         $checkOrder->status = 1;
-    //         $checkOrder->save();
-    //         return redirect()->route('buscheck.show')->with('status', 'Berhasil memverifikasi permintaan pengecekan bus');
-    //     }
-    // }
+    public function storeBusCheckingUnit($userId,$hullCode,$complaint,$date)
+    {
+        
+        if ($hullCode==null) {
+            return redirect()->back()->withErrors('Kode lambung harus diisi');
+        } else {
+            $busCheck = [
+                'user_id' => $userId,
+                'hull_code' => $hullCode,
+                'complaint' => $complaint,
+                'date' => $date
+            ];
+            return redirect()->back()->with('status', 'Berhasil melakukan permintaan pengecekan');
+        }
+    }
 }

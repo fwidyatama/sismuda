@@ -63,7 +63,7 @@
                 <td>{{$sparepart->price}}</td>
             <td>
               <a class="btn btn-info text-white btn-sm" href="{{route('sparepart.editsparepart',[$sparepart->id])}}">Edit</a>
-              <a href="#" data-id="{{$sparepart->id}}" class="btn btn-danger btn-sm delete-sparepart">Delete</a>
+              <a href="#" data-id="{{$sparepart->id}}" class="btn btn-danger btn-sm delete-sparepart">Hapus</a>
             </td>
           </tr>
           @endforeach

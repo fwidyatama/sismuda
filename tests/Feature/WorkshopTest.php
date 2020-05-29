@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\WorkshopController;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\RedirectResponse;
 
 class WorkshopTest extends TestCase
 {
@@ -26,9 +28,10 @@ class WorkshopTest extends TestCase
         'note' => 'Ada kerusakan di bus',
         'work_type' => 'kelistrikan',
     ];
-
+   
     $response = $this->post('/storeworkshoptest',$data);
     $response->assertStatus(200);
+    $response->assertJson(['Berhasil membuat surat tugas'],200);
 }
 public function test_workshop_fails()
 {
@@ -42,5 +45,7 @@ public function test_workshop_fails()
 ];
 $response = $this->post('/storeworkshoptest',$data);
 $response->assertStatus(500);
+$response->assertJson(['Gagal membuat surat tugas'],500);
+
 }
 }

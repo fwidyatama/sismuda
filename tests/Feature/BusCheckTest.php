@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\BusCheckingController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -9,6 +10,7 @@ use Tests\TestCase;
 use Carbon\Carbon;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class BusCheckTest extends TestCase
@@ -27,10 +29,9 @@ class BusCheckTest extends TestCase
             'complaint' => 'Ada kerusakan di bus tolong di cek',
             'date' => Carbon::now()
         ];
-
-
-        $response = $this->post('/storebuscheck',$data);
-        $response->assertStatus(200);
+        $controller = new BusCheckingController();
+        $response = $controller->storeBusCheckingUnit($data['user_id'],$data['hull_code'],$data['complaint'],$data['date']);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
     }
     public function test_bus_check_failed()
     {
@@ -40,9 +41,9 @@ class BusCheckTest extends TestCase
             'complaint' => 'Ada kerusakan di bus tolong di cek',
             'date' => Carbon::now()
         ];
-
-
-        $response = $this->post('/storebuscheck',$data);
-        $response->assertStatus(500);
+        $controller = new BusCheckingController();
+        $response = $controller->storeBusCheckingUnit($data['user_id'],$data['hull_code'],$data['complaint'],$data['date']);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+       
     }
 }

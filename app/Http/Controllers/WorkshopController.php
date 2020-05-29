@@ -63,8 +63,7 @@ class WorkshopController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error','Semua field harus diisi');
         } else {
             $hullCode = $request->hull_code;
             $workshopNumber = $request->workshop_number;
@@ -196,23 +195,18 @@ class WorkshopController extends Controller
 
     public function storeWorkshopUnit(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'work_type' => 'required',
-            'note' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+        if ($request->hull_code != null) {
+            $workshopOrder = [
+                'hull_code' => $request->hull_code,
+                'user_id' => $request->user_id,
+                'order_date' => $request->order_date,
+                'workshop_number' => $request->workshop_number,
+                'note' => $request->note,
+                'work_type' => $request->work_type
+            ];
+            return response()->json(['Berhasil membuat surat tugas'],200);
         } else {
-            $workshop = new Workshop();
-            $workshop->hull_code = $request->hull_code;
-            $workshop->user_id = $request->user_id;
-            $workshop->order_date = Carbon::now();
-            $workshop->workshop_number = $request->workshop_number;
-            $workshop->note = $request->note;
-            $workshop->work_type = $request->work_type;
-            $workshop->save();
+            return response()->json(['Gagal membuat surat tugas'],500);
         }
     }
 }

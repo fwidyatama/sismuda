@@ -9,7 +9,7 @@ use App\Models\Workshop;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Carbon\Carbon;
-class VerifyBusTest extends TestCase
+class BusPermitIntegrationTest extends TestCase
 {
     use DatabaseMigrations;
     /**
@@ -23,8 +23,6 @@ class VerifyBusTest extends TestCase
             'id' => 4,
             'id_role'=>4
         ]);
-
-     
             $workshop = new Workshop();
             $workshop->hull_code = 123;
             $workshop->user_id = $user->id;
@@ -40,8 +38,6 @@ class VerifyBusTest extends TestCase
             'workshopnumber' => 1,
             'note' => 'Tidak ada',
             'date' => Carbon::now()->toDateTimeString(),
-            // 'updated_at' => Carbon::now()->toDateTimeString(),
-            // 'created_at' => Carbon::now()->toDateTimeString()
         ]);
 
         $this->assertDatabaseHas('bus_permits',[
@@ -50,8 +46,6 @@ class VerifyBusTest extends TestCase
             'workshop_number'=>1,
             'note' => 'Tidak ada',
             'date' => Carbon::now()->toDateTimeString(),
-            // 'updated_at' => Carbon::now()->toDateTimeString(),
-            // 'created_at' => Carbon::now()->toDateTimeString()
             ]); 
 
         

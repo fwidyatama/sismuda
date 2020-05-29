@@ -13,7 +13,11 @@
     <h1 class="h3 mb-0 text-gray-800">Mutasi</h1>
 </div>
 <div class="my-3">
-
+    @if(session('error'))
+    <div class="alert alert-danger">
+      {{session('error')}}
+    </div>
+    @endif
     
     <form action="{{route('mutation.store')}}" id="field" class="bg-white shadow-sm p-3" method="POST"
         enctype="multipart/form-data">

@@ -37,7 +37,7 @@
         </thead>
         @if ($users->count()==0)
         <tbody>
-          <td colspan="6" style="text-align: center;padding-top: 3%">Tidak ada suku cadang</td>
+          <td colspan="6" style="text-align: center;padding-top: 3%">Tidak ada data karyawan yang dibuat</td>
           @else
           @foreach ($users as $user)
           <tr>

@@ -164,7 +164,7 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{route('profile',Auth::user()->id)}}">
-                  Profile
+                  Profil
                 </a>
                
                 <div class="dropdown-divider"></div>

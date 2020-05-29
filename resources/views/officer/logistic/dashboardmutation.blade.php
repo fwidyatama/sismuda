@@ -47,7 +47,7 @@
  
       <div class="form-group mx-1">
         <button class="btn btn-primary" name="action" value="filter">Filter</button>
-        <button class="btn btn-success" name="action" value="download">Unduh Laporan</button> 
+        <button class="btn btn-success" name="action" value="download">Unduh Mutasi</button> 
          {{-- <a href="{{route('mutation.download')}}" style="padding-bottom: 2%" class="btn btn-info mx-2">Unduh Laporan</a> --}}
       
       

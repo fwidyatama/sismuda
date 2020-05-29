@@ -7,6 +7,11 @@
 </div>
 <div class="my-3">
 
+    @if(session('error'))
+    <div class="alert alert-danger">
+      {{session('error')}}
+    </div>
+    @endif
     
     <form action="{{route('workshop.storeworkshop')}}" class="bg-white shadow-sm p-3" method="POST"
         enctype="multipart/form-data">

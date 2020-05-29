@@ -58,8 +58,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
             $user = new User();
             $user->name = $request->name;
@@ -114,8 +113,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
             $user = User::findOrFail($id);
             $user->name = $request->name;
@@ -157,8 +155,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
             $user = User::findOrFail($id);
             $user->name = $request->name;

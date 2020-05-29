@@ -48,11 +48,9 @@ class BusController extends Controller
             'hull_code.required'=>'Field harus diisi',
             'license_date.required'=>'Field harus diisi'
         ]);
-       
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-            ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } 
         else{
             $bus = new Bus();
@@ -96,8 +94,7 @@ class BusController extends Controller
        
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-            ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } 
         else{
             $bus = Bus::findOrFail($hullcode);

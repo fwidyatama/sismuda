@@ -118,6 +118,11 @@ Route::get('/bus','WorkshopController@getBusAjax')->name('workshop.getbus');
 Route::get('/getsparepart','SparepartOrderController@getSparepart');
 
 Route::post('/storespareparttest','SparepartOrderController@order')->name('sparepart.post');
-Route::post('/storeworkshoptest','WorkshopController@storeWorkshop')->name('workshop.post');
-Route::post('/storebuscheck','BusCheckingController@storeOrder')->name('buscheck.post');
+Route::post('/storeworkshoptest','WorkshopController@storeWorkshopUnit')->name('workshop.post');
+Route::post('/storebuspermitintegration','BusPermitController@storePermit')->name('buscheck.post');
 Route::post('/storepermit','BusPermitController@storePermit')->name('buscheck.verify');
+
+Route::post('/storebuscheck','BusCheckingController@storeBusCheckingUnit')->name('bus.post');
+
+
+Route::post('/storepermitunit','BusPermitController@unitStorePermit')->name('permit.post');

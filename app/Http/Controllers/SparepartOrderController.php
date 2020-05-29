@@ -88,8 +88,6 @@ class SparepartOrderController extends Controller
         }
     }
 
-
-
     public function order(Request $request)
     {
         $hullCode = $request->hull_code;
@@ -117,8 +115,7 @@ class SparepartOrderController extends Controller
             'type.required' => 'field harus diisi',
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
             $hullCode = $request->hull_code;
             $spareparts = $request->sparepart;

@@ -133,58 +133,6 @@ class MutationController extends Controller
         }
     }
 
-    
-    //coba dulu di modif
-    // public function sparepart($id)
-    // {
-    //     $sparepart = Sparepart::findOrFail($id);
-    //     return $sparepart;
-    // }
-
-    // public function storeMutation($sparepartId, $status, $quantity, $type)
-    // {
-    //     if ($status == 'entry') {
-    //         $sparepartDetail = new Sparepart();
-    //         $sparepartDetail = $sparepartDetail->getSparepartDetail($sparepartId);
-    //         $mutation = new Mutation();
-    //         $sparepatQuantity = $sparepartDetail['quantity'];
-    //         $sparepartPrice = $sparepartDetail['price'];
-    //         $quantity =  $mutation->quantity = $quantity;
-    //         $mutation->user_id = Auth::user()->id;
-    //         $mutation->sparepart_id = $sparepartId;
-    //         $mutation->status = $status;
-    //         $mutation->date = Carbon::now();
-    //         $mutation->quantity = $quantity;
-    //         $mutation->price = $sparepartPrice;
-    //         $mutation->type = $type;
-    //         $mutation->total = $quantity + $sparepatQuantity;
-    //         $mutation->save();
-    //         Sparepart::where('id', $sparepartId)->update([
-    //                 'quantity' => $sparepatQuantity + $quantity
-    //             ]);
-                
-    //     } else if ($status == 'out') {
-    //         $sparepartDetail = new Sparepart();
-    //         $sparepartDetail = $sparepartDetail->getSparepartDetail($sparepartId);
-    //         $mutation = new Mutation();
-    //         $sparepatQuantity = $sparepartDetail['quantity'];
-    //         $sparepartPrice = $sparepartDetail['price'];
-    //         $quantity =  $mutation->quantity = $quantity;
-    //         $mutation->user_id = Auth::user()->id;
-    //         $mutation->sparepart_id = $sparepartId;
-    //         $mutation->status = $status;
-    //         $mutation->date = Carbon::now();
-    //         $mutation->quantity = $quantity;
-    //         $mutation->price = $sparepartPrice;
-    //         $mutation->type = $type;
-    //         $mutation->total = $sparepatQuantity-$quantity;
-    //         $mutation->save();
-    //         Sparepart::where('id', $sparepartId)->update([
-    //                 'quantity' => $sparepatQuantity - $quantity
-    //             ]);  
-    //     }
-    // }
-
     public function storeMutations(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -193,8 +141,7 @@ class MutationController extends Controller
             'type.required' => 'Field harus diisi'
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('error', 'Semua field harus diisi');
         } else {
 
             $spareparts = $request->sparepart;
